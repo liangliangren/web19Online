@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+		<input type="button" value="按钮" id="btn" />
+		<script type="text/javascript">
+			//bind()
+//			$("#btn").bind("click",function(){
+//				alert("abc")
+//			})
+			/*
+			$("#btn").bind("mouseover mouseout",function(){ 
+				//给一个元素绑定多个事件，时间名之间用空格隔开
+				console.log("abc")
+			})
+			*/
+			$("#btn").bind({ //以对象的形式绑定多个事件
+				"mouseover":function(){
+					console.log('a')
+				},
+				"mouseout":function(){
+					console.log('b')
+				},
+			})
+			$("#btn").unbind()
+			
+			//鼠标事件   
+				//click(fn) 单击
+				//dblclick(fn) 双击
+				//mouseover(fn)
+				//mouseout(fn)
+				
+				//mouseenter(fn)  鼠标穿过
+				//mouseleave(fn)  鼠标穿出
+				
+				//mousedown(fn) 鼠标按下
+				//mouseup(fn)   鼠标按下抬起
+				//mousemove(fn) 鼠标移动
+				
+			//键盘事件
+				//keydown(fn)  键盘按下
+				//keyup(fn) 键盘按下抬起
+				//keypress(fn) 按下字符键
+			//html事件
+				//resize(fn) 窗口大小改变
+				//scroll(fn) 滚动条拖动
+				//focus(fn)  获取焦点
+				//blur(fn) 失去焦点
+				
+				//focusin() //获取焦点，作用于父元素
+				//focusout() //失去焦点，作用于父元素
+				
+				//select(fn) 文档的选定
+				//change(fn) 文档的值改变，并且失去焦点
+				
+				//submit(fn) 表单提交，作用于form元素上面
+				//reset(fn)  表单重置，作用于form元素上面
+			
+			//复合事件：
+				//toggle()
+				//https://cdn.bootcss.com/jquery-migrate/3.1.0/jquery-migrate.js  兼容多个版本jQ的插件
+				
+				//hover(mouseoverFn,mouseoutFn)  鼠标移入执行mouseoverFn，鼠标离开执行mouseoutFn
+				
+				//$(document).ready(fn)  当DOM加载完毕时触发
+				
+				
+		</script>
+		
+		<div id="content">
+			点击模拟toggle
+		</div>
+		
+		<script type="text/javascript">
+			var flag=1;
+			$("#content").click(function(){
+				if(flag==1){
+					console.log("a")
+					flag=2
+				}else if(flag==2){
+					console.log("b")
+					flag=3
+				}else{
+					console.log("c")
+					flag=1
+				}
+			})
+		</script>
+		
+	</body>
+</html>

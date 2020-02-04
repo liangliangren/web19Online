@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				background: red;
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+		<!--jquery知识点回顾-->
+		<script type="text/javascript">
+			//jq是什么
+			
+			//jq是一个非常优秀的JavaScript库
+			//write less，do more
+			
+			//常见的jq库插件
+				//fullpage
+				//bootstrap
+				//swiper
+				//Jquery-easyUi
+				
+			//选择器
+			//DOM
+			//事件
+			//动画
+			//ajax
+			
+			//jq版本
+				//1.x.x   兼容IE浏览器
+				//2.x.x   不兼容IE6/7/8
+				//3.x.x   不兼容IE6/7/8
+			//测试jq的引入     alert(jQuery)  alert($)
+			
+			//选择器
+				//通配符选择器 *
+				//ID选择器
+				//标签选择器
+				//类选择器
+				//分组选择器   ，
+				//符合选择器  li.item   或者称为交集选择器
+				//后代选择器   .one .two 中间用空格隔开        对应的方法  find()
+				//子选择器	.one>.two  中间用大于号隔开    对应的方法  children()
+				//下一个兄弟选择器   .one+.two   对应的方法 next()
+				//之后所有的兄弟元素 .one~.two  对应的方法 nextAll()
+				
+				//prev()
+				//prevAll()
+				//sliblings()
+				
+				
+			//过滤器
+				//基本过滤选择器
+					// :first 获取已经选择到的元素中的的一个
+					// :last  获取已经选择到的元素中的的最后一个
+					// :even  选取索引为偶数的元素
+					// :odd   索引为奇数
+					// :eq(index)  选取索引为index的元素
+					// :lt(index)  选取索引小于index的元素
+					// :gt(index)  选取索引大于index的元素
+					// :not(选择器2) 除了选择器2之外的元素
+					// :header     获取所有的标题元素
+				//内容过滤选择器
+					// :contains("所包含的文本内容")
+					// :empty  获取空元素 (没有任何子节点，包括空白节点)
+					// :parent   获取非空元素
+					// :has(选择器2)   $('div:has(.red)')  选取元素中包含有选择器2的元素
+				
+				// 可见性过滤器
+				     //1.不占位置
+				     	//display:none
+				     	//<input type="hidden"/>
+				     //2.占位置
+				     	//opacity:0    filter:alpha(opacity=50)
+				     	//visibility:hidden
+					//:visible  选择占据位置的元素
+					//:hidden   选择不占据位置的元素
+				
+				//属性过滤器
+					// [attr] //获取具有这个属性的元素
+					// [attr=value] //获取具有attr这个属性且属性值为value
+					// [attr^=val]  //获取具有attr这个属性且属性值是以val开头的元素
+					// [attr$=val]  //获取具有attr这个属性且属性值是以val结尾的元素
+					// [attr*=val]  //获取具有attr这个属性且属性值包含val的元素
+					// [attr!=val]  //获取属性值不等于val的元素
+				
+				//伪类
+					// :first-child   //获取第一个子元素
+					// :last-child    //获取最后一个子元素
+					// :nth-child(num) //获取第num个子元素
+					
+					// li:first-of-type  //获取第一个li类型的元素
+					// li:last-of-type  //获取最后一个li类型的元素
+					// li:nth-of-type(num) //获取第num个li元素
+					
+					// :only-child 获取独生元素
+					
+				//表单选择器
+					// :text
+					// :password
+					// :email
+					// :checkbox
+					// :radio
+					// :submit
+					// :reset
+					// :button
+					// :number
+					// :file
+					// :image
+					//表单中的type类型 加上:
+					
+					//:checked 单选框和复选框选中
+					//:slected 下拉选择框选中
+					//:disabled //禁用
+					//:enabled  //可用
+					//:focus   //获取焦点
+					//:blur    //失去焦点
+					
+					//:input
+					
+					
+			//DOM操作
+				//Document 文档
+				//Object   对象
+				//Model    模型
+				//文档对象模型
+			
+			//创建节点
+				//var oDiv=$('<div>我是一个新节点</div>')   //jQ中创建节点的方法
+				//var oDiv1=document.createElement('div')  js中创建节点的方法
+			
+			//插入节点
+				//append
+					//$A.append(B)  //将B插入到A的内部末尾
+				//appendTo
+					//$A.appentTo(B) //将A移入到B的内部末尾
+				
+				//prepend
+					//$A.prepend(B)  //将B插入到A的内部前面
+				//prependTo
+					//$A.prependTo(B) //将A移入到B的内部前面
+					
+					
+				//after
+					//$A.after(B)  在A之后追加B，作为它的兄弟元素  AB
+				//before
+					//$A.before(B) 在A之前追加B，作为它的兄弟元素  BA
+				
+				//insertAfter()
+					//$A.insertAfter(B) 将B移动到A的后面，做为兄弟元素
+				//insertBefore()
+					//$A.insertBefore(B) 将B移动到A的前面，做为兄弟元素
+					
+			//remove()  删除节点
+			//empty()   清空节点
+			//replaceWith(新节点) 替换节点    $("div").replaceWith("<span></span>")
+			//replaceAll(目标节点)  替换节点 //$("<span></span>").replaceAll($('div'))
+			
+			//clone(true) //深度复制   不但复制 元素，并且把元素的事件也复制了
+			
+			
+			//包裹节点
+			//wrap(html) //向指定元素包裹一层html代码
+			//unwrap()  //移除一层指定元素包裹的内容
+			$(function(){
+				$("strong").wrap("<div></div>")  //在strong标签外部包裹一层div
+				$("span").wrapAll("<div></div>")
+			})
+			
+			//wrapAll() 用DOM对象将所有的指定元素包裹在一起
+			//wrapInner() 向指定元素的自内容包裹一层html
+			
+			
+		</script>
+		<strong>1</strong>
+		<strong>2</strong>
+		
+		<span>1</span>
+		<span>2</span>
+		<span>3</span>
+		<p><span>p标签中的span</span></p>
+		
+		
+		<div id="box" title="123">
+			<em>123</em>
+		</div>
+		
+		<p id="pox" style="width: 300px; height: 100px; background: yellow;">
+			段落标签
+		</p>
+		<script type="text/javascript">
+			//html()  //获取元素中的html内容  相当于js中的innerHTML
+			//$("#box").html("abcd")
+			//$("#box").html($("#box").html()+"abcd")
+			$("#box").html(function(index,value){
+				//alert(value)
+				return value+"abcdefg"
+			})
+			//val() 获取表单的文本内容
+			//val(value) 设置表单的文本内容
+			
+			//text() 获取元素中的文本内容
+			//text(value) 设置元素中的文本内容
+			
+			//属性的操作
+				//attr(key)			获取某个元素的key属性值
+				//attr(key,value)   设置某个元素key的属性值
+				
+				//attr({key1:value1,key2:value2}) 设置多个key的值
+				
+				//使用函数修个某个属性
+				$('#box').attr('title',function(index,value){
+					return value+"abcdefg"
+				})
+			
+			//removeAttr("title")  //移除指定属性
+			
+			
+			
+			//对样式的操作
+			
+				//css(name)
+				//alert($("#pox").css("width"))
+				console.log($("#pox").css(["width","height"]))
+				var obj=$("#pox").css(["width","height"])
+				$.each(obj,function(attr,value){
+					console.log(attr+":"+value)
+				})
+				//css(name,value)
+				//css({name1:value1,name2:value2})
+				$("#pox").css("color","white")
+				
+				//注意事项：通过css可以添加行内样式
+				
+				//addClass(类名) 给某个元素添加一个css类
+				//addClass(类名1 类名2 类名3) 给元素添加多个类中间用空格隔开
+				//removeClass(类名) 删除某个元素上的css类
+				//removeClass(类名1 类名2 类名3) 删除某个元素上面的多个类
+				
+			//css方法
+				//width()  获取宽度，得到的是一个number  不带单位，默认是px
+					//width(300) 设置某个元素的宽度
+				//height() 获取高度，得到的是一个number  不带单位，默认是px
+					//height(300) 设置某个元素的高度
+				
+				//innerWidth()   //width+padding
+				//innerHeight()  //height+padding
+				
+				//outerWidth()  //width+padding+border
+				//outerHeight() //height+padding+border
+				
+				//outerWidth(true)  //width+padding+border+margin
+				//outerHeight(true) //height+padding+border+margin
+				
+				//offset()   获取某个元素相对于视口的偏移位置，得到一个对象
+					 //offset().left
+					 //offset().top
+				//
+				//position() 获取某个元素相对于有定位的父元素的偏移位置，如果父元素没有定位，相对于body
+					//position().left
+					//position().top
+				
+				//scrollTop()  //垂直方向滚动条的滚动距离
+					//scrollTop(300)  设置
+				//scrollLeft() //水平方向滚动条滚动的距离
+					//scrollLeft(300) 设置
+				
+		</script>
+		
+		
+	</body>
+</html>
