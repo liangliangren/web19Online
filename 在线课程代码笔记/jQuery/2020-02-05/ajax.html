@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#header").load("header.html")
+				$("#footer").load("footer.html")
+				
+				$.ajax({
+					type:"get",  //请求的方式    get post      put  delete
+					url:"data.json",  //请求数据的地址
+					async:true,  //异步
+					success:function(res){
+						console.log(res.listDatas)  //数组
+						var  listDatas=res.listDatas
+						//要把请求到的数据显示在页面中
+						var str=""
+						/*
+						listDatas.forEach(function(value,index){
+							//value 第一个参数就是数组的每一项元素
+							//index索引  
+							//注意参数的顺序
+							console.log(value.title)  //列表1 、列表2、列表3、列表4
+							str+="<li>"+value.title+"</li>"
+						})
+						console.log(str) //<li>标题1</li><li>标题2</li><li>标题3</li><li>标题4</li>
+						$("#list").html(str)
+						*/
+						
+						for(var i=0;i<listDatas.length;i++){
+							console.log(listDatas[i])
+							str+="<li>"+listDatas[i].title+"</li>"
+						}
+						$("#list").html(str)
+						
+					}
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div id="header" style="height: 100px;"></div>
+		<div class="wrap">
+			<ul id="list">
+				<li></li>
+			</ul>
+		</div>
+		<div id="footer"></div>
+	</body>
+</html>

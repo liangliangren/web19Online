@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+		<input type="button" value="按钮" id="btn" />
+		<script type="text/javascript">
+			//模拟事件点击
+			$("#btn").bind("click.a",function(){
+				alert("a")
+			})
+			
+			$("#btn").bind("click.b",function(){
+				alert("b")
+			})
+			//trigger('click')
+			
+			//$("#btn").trigger('click')
+			//$("#btn").triggerHandler('click')
+			
+			//trigger和triggerHandler 区别？
+			//都有模拟用户操作的作用
+			//triggerHandler可以阻止默认行为
+			
+			//事件解绑
+			$("#btn").unbind('click.a')
+			//命名空间
+			
+			//事件委托
+			//delegate()  
+				//父元素.delegate('子元素选择器',事件类型,fn)
+				//$('ul').delegate('li','click',function(){})
+				
+			//on 等同于bind
+			//off 等同于 unbind
+			//one() 执行一次
+			
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>

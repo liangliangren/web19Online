@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+		<input type="button" value="按钮" id="btn" />
+		<script type="text/javascript">
+			$("#btn").bind("click","123",function(e){
+				console.log(arguments[0])
+				console.log(e)
+				//e.type  事件类型   "click"
+				//e.target 绑定该事件的DOM元素    input#btn
+				//e.data  绑定事件传递的额外数据   data: "123"
+				//e.clientX  鼠标水平方向落点位置
+				//e.clientY  鼠标垂直方向落点位置
+				//offsetX  视口的水平方向偏移位置
+				//offsetY  视口的垂直方向偏移位置
+				//which		获取鼠标的左 中 右键
+				
+				//事件冒泡出现的条件：
+				//页面当中重叠了多个元素，并且重叠的元素都绑定同一个事件类型，那么会出现事件冒泡
+				//现象：当一个元素接受到一个事件会由内向外逐层扩散直到最顶层window为止
+				
+				//阻止事件冒泡：
+				e.stopPropagation()
+				
+				//阻止默认行为：
+				e.preventDefault()  //第一种方法
+				return false //第二种阻止默认行为的方法
+				
+			})
+		</script>
+		<a href="javascript:;">阻止a标签的默认行为</a>
+	</body>
+</html>

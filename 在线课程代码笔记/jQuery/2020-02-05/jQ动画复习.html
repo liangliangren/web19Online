@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<style type="text/css">
+			#box{
+				width: 300px;
+				height: 300px;
+				background: #f00;
+			}
+		</style>
+	</head>
+	<body>
+		<input type="button" value="隐藏" />
+		<input type="button" value="显示" />
+		<input type="button" value="显示隐藏切换" />
+		<input type="button" value="淡入" />
+		<input type="button" value="淡出" />
+		<input type="button" value="淡入淡出切换" />
+		<input type="button" value="淡入到50%停止" />
+		
+		<input type="button" value="向上" />
+		<input type="button" value="向下" />
+		<input type="button" value="向上向下切换" />
+		
+		<input type="button" value="自定义动画" id="animate" />
+		<div id="box"></div>
+		<script type="text/javascript">
+			//hide() //隐藏
+			//show() //显示
+			//toggle() //显示隐藏切换
+			//这几个方法都可以传递一个时间参数
+				//参数可以为具体的数字毫秒数 /fast快的/slow慢的/normal正常的
+			//第二个参数：回调函数，动画执行完毕之后的回调
+			$("input").eq(0).click(function(){
+				$("#box").hide(2000,function(){
+					alert("a")
+				})
+			})
+			$("input").eq(1).click(function(){
+				$("#box").show(2000)
+			})
+			$("input").eq(2).click(function(){
+				$("#box").toggle(2000)
+			})
+			
+			//淡入淡出
+			//fadeIn()
+			//fadeOut()
+			//fadeToggle()
+			$("input").eq(3).click(function(){
+				$("#box").fadeIn(2000)
+			})
+			$("input").eq(4).click(function(){
+				$("#box").fadeOut(2000)
+			})
+			$("input").eq(5).click(function(){
+				$("#box").fadeToggle(2000)
+			})
+			$("input").eq(6).click(function(){
+				$("#box").fadeTo(2000,0.5)
+			})
+			//上拉下卷
+			//slideUp()
+			//slideDown()
+			//slideToggle()
+			$("input").eq(7).click(function(){
+				$("#box").slideUp(2000)
+			})
+			$("input").eq(8).click(function(){
+				$("#box").slideDown(2000)
+			})
+			$("input").eq(9).click(function(){
+				$("#box").slideToggle(2000)
+			})
+			
+			//animate(过度对象,事件,callback)
+			$("#animate").click(function(){
+				$("#box").animate({
+					"width":"800px"
+				},2000,function(){
+					$("#box").css("background","green")
+				})
+			})
+		</script>
+	</body>
+</html>
