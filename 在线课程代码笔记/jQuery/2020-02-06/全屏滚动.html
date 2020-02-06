@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			#wrap {
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+			}
+			
+			#content {
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100%;
+			}
+			#nav{
+				position: fixed;
+				top: 0px;
+				right: 0;
+			}
+			#nav a{
+				display: inline-block;
+				width: 100px;
+				height: 40px;
+				text-align: center;
+				line-height: 40px;
+				color: #fff;
+				background: red;
+				text-decoration: none;
+			}
+			#nav a.active{
+				background: #333;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--全屏滚动的思路
+			1、先写布局，每次只有一屏显示，其他隐藏，大小自适应
+			2、滚动事件
+				//判断滚动方向
+				//向上滚动还是向下滚动
+			3、编写向上滚动函数，向下滚动函数
+			4、链接跳转
+			
+			
+			
+		-->
+		<div id="wrap">
+			<div id="content">
+				<div class="floor" style="background: pink;">第一屏</div>
+				<div class="floor" style="background: paleturquoise;">第二屏</div>
+				<div class="floor" style="background: palevioletred;">第三屏</div>
+				<div class="floor" style="background: peru;">第四屏</div>
+			</div>
+		</div>
+		<div id="nav">
+			<a href="javascript:;" class="active">第一屏</a>
+			<a href="javascript:;">第二屏</a>
+			<a href="javascript:;">第三屏</a>
+			<a href="javascript:;">第四屏</a>
+		</div>
+		<script type="text/javascript">
+			//用js获取可视窗口的大小
+			//编写窗口大小改变函数
+			function resizeScreenFn() {
+				var screenH = document.documentElement.clientHeight || document.body.clientHeight; //body兼容IE
+				var oContent = document.getElementById("content")
+				var oFloor = oContent.getElementsByTagName("div")
+				for(var i = 0; i < oFloor.length; i++) {
+					oFloor[i].style.height = screenH + "px"
+				}
+				//console.log(screenH)
+				document.getElementById("wrap").style.height = screenH + "px"
+			}
+			resizeScreenFn()
+			window.onresize = function() {
+				resizeScreenFn()
+				scrollStratFn()
+			}
+
+			//鼠标滚轮事件
+			//滚动函数
+			var scrollFn = function(e) {
+				var e = e || window.event
+				console.log(e)
+				if(e.wheelDelta) { //判断鼠标滚轮滚动方向  IE和谷歌
+					if(e.wheelDelta < 0) {
+						scrollDownFn()
+					}
+					if(e.wheelDelta > 0) {
+						scrollUpFn()
+					}
+				} else if(e.detail) { //判断鼠标滚轮滚动方向   火狐浏览器
+					if(e.detail > 0) {
+						scrollDownFn()
+					}
+					if(e.detail < 0) {
+						scrollUpFn()
+					}
+				}
+			}
+
+			if(document.addEventListener) { //兼容火狐浏览器
+				document.addEventListener("DOMMouseScroll", scrollFn)
+			}
+
+			window.onmousewheel = document.onmousewheel = scrollFn //谷歌和IE有效果
+			//window.onmousewheel 谷歌浏览器有效果
+			//document.onmousewheel IE浏览器中有效果
+
+			var scrollIndex = 0; //滚动到第几屏的索引
+			var scrollGoing = false; //是否允许滚动的开关
+			var scrollFlag = 0; //控制滚动次数开关
+			var scrollTimer = null;
+
+			//向下滚动函数
+			function scrollDownFn() { //滚动一次执行一次
+				//alert("向下滚动")
+				if(scrollFlag < 1) { //第一次滚动走这个条件，滚动完之后，条件不满足，下次滚动走else if提交
+					clearTimeout(scrollTimer)
+					scrollTimer = setTimeout(function() {
+						scrollFlag++
+					}, 100)
+				} else if(!scrollGoing) {
+					scrollGoing = true
+					scrollIndex++
+					if(scrollIndex > 3) {
+						scrollIndex = 3
+					}
+					//滚动函数
+					scrollStratFn() //定义一个滚动动画
+				}
+			}
+			//向上滚动函数
+			function scrollUpFn() {
+
+				if(scrollFlag < 1) {
+					clearTimeout(scrollTimer)
+					scrollTimer = setTimeout(function() {
+						scrollFlag++
+					}, 100)
+				} else if(!scrollGoing) {
+					scrollGoing = true
+					scrollIndex--
+					if(scrollIndex < 0) {
+						scrollIndex = 0
+					}
+					//滚动函数
+					scrollStratFn()
+				}
+			}
+			var oNav=document.getElementById("nav")
+			var oAs=oNav.getElementsByTagName("a"); //获取到一个集合
+			//点击链接跳转
+			
+			for(var i=0;i<oAs.length;i++){
+				oAs[i].index=i
+				oAs[i].onclick=function(){
+//					for(var i=0;i<oAs.length;i++){
+//						oAs[i].className=""
+//					}
+//					oAs[this.index].className="active"
+					scrollIndex=this.index
+					
+					scrollStratFn()
+				}
+			}
+
+			//滚动函数
+			function scrollStratFn() {
+				//定义一个变量来设置滚动方向
+				var direction = 1
+				var oContent = document.getElementById("content");
+				var target = document.getElementById("wrap").offsetHeight * scrollIndex   //scrollIndex已经变化了
+
+				//滚动距离
+				var moveHeight = Math.abs(target + oContent.offsetTop); //Math.abs() 求绝对值  //oContent.offsetTop还没有来的及变化
+				if(target + oContent.offsetTop < 0) {  //为什么会小于0，应为可以为负一屏的高度
+					direction = -1
+				}
+				console.log(moveHeight)
+				//滚动速度
+				var speed = moveHeight / 50  
+				//50任意写的
+
+				var moveTimer = setInterval(function() {
+					oContent.style.top = oContent.offsetTop - speed * direction + "px"
+					moveHeight -= speed
+					console.log(moveHeight)
+					if(moveHeight <= 50) {
+						clearInterval(moveTimer)
+						scrollGoing = false
+						oContent.style.top = -target + "px"
+						
+						scrollFlag=0; //这个重置为0，鼠标滚动两次滑动一屏
+						//给链接添加选中样式
+						//获取选中的连接元素
+						document.getElementsByClassName("active")[0].className=""  
+						oAs[scrollIndex].className="active"
+					}
+				}, 10)
+
+			}
+			
+			
+			
+			
+		</script>
+
+	</body>
+
+</html>

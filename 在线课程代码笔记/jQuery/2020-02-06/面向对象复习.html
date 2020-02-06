@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//js面向对象和原型
+			//面向对象的核心规则
+			//1.所有的函数对象都有一个原型对象 prototype
+			//2.所有的对象上都有一个隐式原型__proto__指向创建该对象的构造函数的原型
+			//3.所有的原型上都有一个constructor指向该原型所在的构造函数本身
+			
+			//new一个对象
+			var obj=new Object()
+			obj.name="llr"
+			obj.age=18
+			console.log(obj)
+			
+			//采用字面量形式
+			var obj1={
+				name:"张三"
+			}
+			console.log(obj1)
+			var obj2={
+				name:"李四"
+			}
+			console.log(obj2)
+			
+			
+			//对象时一个复杂数据类型
+			
+			//工厂方法定义对象
+			
+			function createObj(name,age){
+				var obj=new Object() //每创建一个对象都要重复实例化执行一次
+				obj.name=name
+				obj.age=age
+				obj.fn=function(){
+					return this.name+"-"+this.age
+				}
+				return obj;
+			}
+			var box=createObj("张三",18)
+			var box2=createObj("李四",28)
+			
+			console.log(box)
+			console.log(box2)
+			
+			console.log(typeof box)
+			console.log(typeof box2)
+			console.log(box instanceof Object) //true
+			console.log(box2 instanceof Object) //true
+			
+			console.log(box.fn())
+			console.log(box2.fn())
+			//问题：根本没有办法搞清楚他们到底是哪个对象的实例
+			
+			
+			//构造函数方法
+			
+			function Pox(name,age){
+				this.name=name;
+				this.age=age;
+				this.fn=function(){
+					return this.name+"-"+this.age
+				}
+			}
+			
+			var pox1=new Pox("张三",18)
+			console.log(pox1)
+			console.log(pox1.name)
+			var pox2=new Pox("张三",18)
+			console.log(pox2)
+			console.log(pox2.name)
+			
+			console.log(pox1.fn==pox2.fn)  //false
+			console.log(pox1.fn()==pox2.fn()) //true
+			console.log(pox1 instanceof Pox)  //很清晰的识别从属于Pox这个构造函数
+			console.log(pox2 instanceof Pox)  //很清晰的识别从属于Pox这个构造函数
+			console.log(pox1.hasOwnProperty('name')) //true 判断一个属性是否在构造函数的实力中，有true 否则false
+			//构造函数解决了重复实例化的问题，也解决了对象的识别问题，这里并没有 new Object()
+			
+			//构造函数和工厂方法的不同之处
+			//1.构造函数没有显示的创建对象（new Object）
+			//2.直接将属性和方法赋值给this对象
+			//3.没有return
+			
+			//问题？  没有new Object()，那么对象是怎么创建出来的？或者new Object()是在哪里执行了？
+			
+			//1.当使用构造函数，并且new构造函数，那么就跟后台执行了new Object()
+			//2.将构造函数的作用于给新的对象，也就是new出来的对象，如上面的pox1和pox2，而函数体内的this就代表new出来的对象
+			//3.执行构造函数内的代码
+			//4.返回新的对象
+			
+			
+			//注意事项
+			//如果构造函数在使用时没有使用new关键,那么它和普通函数没有区别。
+			
+			//原型：
+			function Cox(){}
+			Cox.prototype.name="张三"
+			Cox.prototype.age=18
+			Cox.prototype.fn=function(){
+				return this.name+"-"+this.age
+			}
+			var cox1=new Cox()
+			console.log(cox1)
+			var cox2=new Cox()
+			console.log(cox2)
+			
+			console.log(cox1.fn==cox2.fn) //true  指着都是一样的
+			
+			//判断一个对象是否指向了该构造函数
+			//isPrototypeOf()
+			console.log(Cox.prototype.isPrototypeOf(cox1)) //true
+			//只要实例化对象，都会指向构造函数
+			
+			console.log("name" in cox1) //true  可以通过in操作符，判断一个属性是否在某个对象中
+			
+			
+		</script>
+	</body>
+</html>

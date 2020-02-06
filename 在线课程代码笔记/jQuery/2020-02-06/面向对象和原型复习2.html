@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//构造函数和原型共用
+			function Box(name,age){
+				this.name=name;
+				this.age=age;
+				this.family=["父亲","母亲","哥哥"]
+			}
+			Box.prototype={
+				constructor:Box, //强制指向构造函数
+				fn:function(){
+					return this.name+this.age+this.family
+				}
+			}
+			var box1=new Box("张三",18)
+			console.log(box1)
+			var box2=new Box("李四",28)
+			console.log(box2)
+			
+			//继承
+			
+			function Pox(){
+				this.name="llr"
+			}
+			function Cox(){
+				this.age=18
+			}
+			//想让name和age属性共享到一个对象中
+			//Cox继承Pox，通过原型继承，形成一个链条，原型链
+			Cox.prototype=new Pox()
+			
+			var cox=new Cox()
+			console.log(cox.age)
+			console.log(cox.name)
+			console.log(cox)
+			
+			function Kox(){
+				this.sex="男"
+			}
+			
+			Kox.prototype=new Cox()
+			
+			var kox=new Kox()
+			console.log(kox.name)
+			console.log(kox.age)
+			console.log(kox.sex)
+			console.log(kox)
+			
+		</script>
+	</body>
+</html>

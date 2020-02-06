@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//构造函数和原型共用
+			function Box(age){
+				this.age=age;
+				this.family=["父亲","母亲","哥哥"]
+			}
+			Box.prototype.fn=function(){
+				return this.age+this.family
+			}
+			
+			function Cox(age){
+				Box.call(this,age)  //对象冒充
+				//call  可以将函数作为对象的方法来调用
+				//this指向new出来的实例对象
+			}
+			Cox.prototype=new Box() //Cox通过原型继承Box
+			var cox=new Cox(100)
+			console.log(cox.fn())
+			
+		</script>
+	</body>
+</html>
