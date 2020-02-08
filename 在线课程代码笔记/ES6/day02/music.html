@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+			#wrap{
+				width: 700px;
+				height: 40px;
+				text-align: center;
+				margin: 0px auto;
+			}
+			#wrap ul li{
+				list-style: none;
+				float: left;
+				width: 98px;
+				border: 1px solid #ccc;
+				line-height: 40px;
+				position: relative;
+			}
+			.mask{
+				position: absolute;
+				bottom: 0;
+				height: 0px;
+				background: rgba(0,0,0,0.5);
+				width: 100%;
+				transition: all 0.5s;
+			}
+			#wrap ul li:hover .mask{
+				height: 40px;
+				transition: all 0.5s;
+			}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var oLis=$("#list li")
+				$.each(oLis, function(index) {
+					$(this).hover(function(){
+						var mp3Url="music/"+(index+1)+".mp3"
+						console.log(mp3Url)
+						$("audio").eq(index).attr("src",mp3Url)
+					},function(){
+						$("audio").eq(index).attr("src","")
+					})
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<ul id="list">
+				<li>
+					1
+					<div class="mask"></div>
+				</li>
+				<li>
+					2
+					<div class="mask"></div>
+				</li>
+				<li>
+					3
+					<div class="mask"></div>
+				</li>
+				<li>
+					4
+					<div class="mask"></div>
+				</li>
+				<li>
+					5
+					<div class="mask"></div>
+				</li>
+				<li>
+					6
+					<div class="mask"></div>
+				</li>
+				<li>
+					7
+					<div class="mask"></div>
+				</li>
+			</ul>
+		</div>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器1
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器2
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器3
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器4
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器5
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器6
+		</audio>
+		<audio autoplay="autoplay">
+			您的浏览器不支持该标签，请更换或者升级浏览器7
+		</audio>
+	</body>
+</html>
