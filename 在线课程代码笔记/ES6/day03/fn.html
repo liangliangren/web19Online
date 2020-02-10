@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			let obj={
+				a:10,
+				b:()=>{
+					console.log(this.a) //undefined
+					console.log(this)  //window
+				},
+				c:function(){ //普通函数写法
+					console.log(this.a) //10
+					console.log(this) //{a: 10, b: ƒ, c: ƒ}  
+				}
+			}
+			obj.b()
+			obj.c()   //this指向obj对象
+			
+			//node环境没有window
+			
+			function fn(){
+				console.log(this) //Window
+			}
+			window.fn()
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*
+			var User={
+				"age":18,
+				fn:function(){
+					setTimeout(function(){  //异步操作
+						console.log(this.age)
+					})
+				}
+			}
+			var age=28;
+			User.fn() //28
+			*/
+			
+			var User2={
+				"age":18,
+				fn:function(){
+					setTimeout(()=>{
+						console.log(this.age) //18  //this指的是定义这个函数的对象
+					})
+				}
+			}
+			var age=28;
+			User2.fn() 
+			
+			
+		</script>
+	</body>
+</html>
