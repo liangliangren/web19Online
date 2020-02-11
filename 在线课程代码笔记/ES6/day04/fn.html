@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<input type="button" id="btn" value="按钮" />
+		<script type="text/javascript">
+			let obj={
+				id:1001,
+				getId:function(){
+					console.log(this.id)
+				},
+				getId2:()=>{
+					console.log(this.id)
+				}
+			}
+			var id=10
+			obj.getId() //obj
+			obj.getId2() //10  对象中的方法如果是箭头函数，那么箭头函数中的this默认指向定义该对象的作用域
+			
+			let oBtn=document.getElementById("btn");
+			/*
+			oBtn.onclick=function(){
+				console.log(this) //btn
+			}
+			*/
+			oBtn.onclick=()=>{
+				console.log(this) //Window
+			}
+			
+			
+		</script>
+	</body>
+</html>
