@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//Promise 是异步编程的解决方案
+			//Promise 是一个对象，它可以获取异步操作的消息
+			//Promise 对象代表了未来将要发生的事件，用来传递异步操作的消息。
+			//console.log(Promise) //在控制台中打印出日志信息
+			//console.dir(Promise) //在控制台中打印出对象的所有属性和方法
+			
+			//Promise 其实是一个构造函数，它有resolve和reject,race，all方法
+			//Promise 的原型prototype上有catch和then方法，catch和then方法可以共享给Promise实例对象
+			
+			var obj=new Promise(function(resolve,reject){
+				var flag=false;
+				
+				if(flag){
+					resolve("这是数据1")
+				}else{
+					resolve("这是数据2")
+				}
+				
+			});
+			
+			obj.then(function(data){ //fulfilled已成功
+				console.log(data)
+				console.log("成功")
+			}).catch(function(errdata){ //catch代表异常处理
+				console.log(errdata)
+				console.log("失败")
+			})
+			
+			//then()中有两个参数：
+			//第一个参数执行Promise的成功回调函数
+			//第二个参数执行Promise的失败回调函数
+			
+			//在vuejs中有一个axios插件  只要是进行异步操作---》ajax
+			
+			//Promise 对象的状态不受外界影响。Promise 对象代表一个异步操作，有三种状态：
+			//pending（进行中）
+			//fulfilled（已成功）
+			//rejected（已失败）
+			
+			//注意:Promise的状态只能从
+			//pending变为fulfilled
+			//pending到rejected
+		</script>
+	</body>
+</html>
