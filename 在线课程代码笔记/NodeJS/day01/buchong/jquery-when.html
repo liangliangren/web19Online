@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//$.when() 提供一种方法来执行一个或者多个对象的回调
+			$(function(){
+				$.when({name:"llr"}).done(function(val){
+					console.log(val) //{name:"llr"}
+					console.log(val.name) 
+				})
+			})
+		</script>
+	</body>
+</html>
