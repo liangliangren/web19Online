@@ -1,0 +1,14 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+.header-wrap{
+	width: 100%;
+	height: 100px;
+}
+.header{
+	width: 1200px;
+	height: 100px;
+	background: pink;
+	margin: 0px auto;
+}
