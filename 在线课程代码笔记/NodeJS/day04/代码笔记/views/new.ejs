@@ -1,0 +1,21 @@
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	</head>
+
+	<body>
+		<%-include ("public/header.ejs") %>
+		<h2>我是ejs模版-新闻页面</h2>
+		<ul>
+			<%for(let i=0;i<list.length;i++){%>
+				<li>
+					<%=list[i]%>
+				</li>
+			<%}%>
+		</ul>
+	</body>
+
+</html>

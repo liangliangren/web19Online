@@ -1,0 +1,27 @@
+<html>
+	<head>
+		<meta charset="UTF-8"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/style.css"/>
+		<style type="text/css">
+			.list li{
+				list-style: none;
+			}
+			.list li:first-child{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<%-include ("public/header.ejs") %>
+		<h2>ejs模版-产品页面</h2>
+		<ul class="list">
+			<%for(let i=0;i<listabc.length;i++){%>
+			<li>
+				<%=listabc[i].title%>
+			</li>
+			<%}%>
+		</ul>
+		
+	</body>
+</html>
