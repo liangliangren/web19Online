@@ -37,17 +37,18 @@
 						</div>
 						<div class="panel-body">
 							<div class="table-responsive input-form">
-								<form action="/doAdd" method="post">
+								<form action="/doProductEdit" method="post" enctype="multipart/form-data">
 									<ul>
-										<li> 商品名称: <input type="text" name="title" /></li>
-
-										<li> 商品图片: <input type="file" name="pic" /></li>
-										<li> 商品价格: <input type="text" name="price" /></li>
-										<li> 商品邮费: <input type="text" name="fee" /></li>
-
+										<li> 商品名称: <input type="text" name="title" value="<%=productEditData.title%>" /></li>
+										<li> 商品图片: <input type="file" name="imgUrl" />
+											<img src="<%=productEditData.imgUrl%>" width="100" style="display: block;" alt="" />
+										</li>
+										<input type="hidden" name="myid" value="<%=productEditData._id%>" />
+										<li> 商品价格: <input type="text" name="price" value="<%=productEditData.price%>"/></li>
+										<li> 商品邮费: <input type="text" name="postage" value="<%=productEditData.postage%>"/></li>
 										<li>
 											商品描述:
-											<textarea name="description" id="" cols="60" rows="8"></textarea>
+											<textarea name="description" id="" cols="60" rows="8"><%=productEditData.description%></textarea>
 										</li>
 
 										<li>

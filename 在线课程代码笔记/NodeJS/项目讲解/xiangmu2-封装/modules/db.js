@@ -5,6 +5,13 @@ const DBurl = 'mongodb://localhost:27017';
 //连接数据库的名称
 const dbName = 'shop';
 
+//数据库中的id
+var ObjectID=require('mongodb').ObjectID
+console.log(ObjectID)
+
+//暴露ObjectID
+exports.ObjectID=ObjectID
+
 function connectDBFn(callback){
 	//连接数据库
 	MongoClient.connect(DBurl,function(err,client){
@@ -39,4 +46,15 @@ exports.insert=function(collectionName,json,callback){
 
 
 //修改
+//db.product.update({"price" : "1999"},{$set:{"title":"华为手机"}})
+//db.集合名称.update(json1,{$set:json2})
+exports.update=function(collectionName,json1,json2,callback){
+	connectDBFn(function(db){
+		db.collection(collectionName).updateOne(json1,{$set:json2},function(err,data){
+			callback(err,data)
+		})
+	})
+}
+
+
 //删除
