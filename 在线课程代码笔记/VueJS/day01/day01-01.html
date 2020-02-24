@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- {{}} 差值表达式 -->
+        <p>{{msg}}</p>
+        <p>{{1+10}}</p>
+    </div>
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data: {
+                msg: "靓靓人"
+            }
+        })
+    </script>
+</body>
+
+</html>

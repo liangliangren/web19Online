@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 数据为数组 -->
+        <ul>
+            <li v-for="item in arr">{{item}}</li>
+        </ul>
+        <ul>
+            <li v-for="(item,index) in arr">数组中的值:{{item}},索引为:{{index}}</li>
+        </ul>
+        <!-- 数据为数组对象 -->
+        <ul>
+            <li v-for="(list,index) in listData">产品为:{{list.title}},索引为:{{index}}</li>
+        </ul>
+        <!-- 数据是一个对象 -->
+        <ul>
+            <li v-for="(value,key,index) in userinfo">值为:{{value}}----属性为{{key}}----索引为:{{index}}</li>
+        </ul>
+        <!-- in后面可以是一个数字
+            迭代数字结果是从1开始的
+        -->
+        <ul>
+            <li v-for="num in 10">{{num}}</li>
+        </ul>
+
+        <ul>
+            <li v-for="(str,index) in msg">{{str}}---索引:{{index}}</li>
+        </ul>
+
+        <!-- v-for 循环一段html代码 -->
+        <ul>
+            <li v-for="(list,index) in lists" v-bind:key="index">{{list}}---索引:{{index}}</li>
+            <!-- key绑定一个唯一的值，通常可以为数据的id，或者索引，以后数据库中推荐使用id 
+                 好处:可以提高执行效率，只会重新编译修改的那个数据
+            -->
+        </ul>
+    </div>
+
+
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    arr: ["a", "b", "c", "d"],
+                    listData: [{
+                        id: 1,
+                        title: "手机"
+                    }, {
+                        id: 2,
+                        title: "电脑"
+                    }, {
+                        id: 3,
+                        title: "电视"
+                    }, {
+                        id: 4,
+                        title: "洗衣机"
+                    }],
+                    userinfo: {
+                        id: 10001,
+                        username: "llr",
+                        age: 18,
+                        sex: "男"
+                    },
+                    msg: "hello",
+                    lists: ["a", "a1", "b", "b"]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

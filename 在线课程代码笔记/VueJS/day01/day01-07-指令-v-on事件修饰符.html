@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+
+        .wrap {
+            width: 400px;
+            height: 400px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on: 事件绑定的监听器 可以简写为@-->
+        <!-- 事件冒泡: @click.stop阻止事件冒泡-->
+        <div class="box" @click="boxFn">
+            <input type="button" value="按钮" @click.stop="inputFn">
+        </div>
+        <!-- 阻止默认行为 @click.prevent-->
+        <a href="https://www.baidu.com" @click.prevent="boxFn">百度</a>
+
+        <!-- once 只执行一次 @click.prevent.once只阻止一次默认行为-->
+        <a href="https://www.qq.com" @click.prevent.once="boxFn">腾讯</a>
+
+        <!-- .self和.stop 
+            .self只会阻止自己身上冒泡行为，并不是真正的阻止冒泡
+        -->
+        <div class="wrap" @click="wrapFn">
+            <div class="box" @click.stop="boxFn">
+                <input type="button" value="按钮" @click="inputFn">
+            </div>
+        </div>
+        <div class="wrap" @click="wrapFn">
+            <div class="box" @click.self="boxFn">
+                <input type="button" value="按钮" @click="inputFn">
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    msg: "hello",
+                    age: 18
+                }
+            },
+            methods: {
+                wrapFn() {
+                    alert("wrapFn")
+                },
+                boxFn() {
+                    alert("boxFn")
+                },
+                inputFn() {
+                    // event.stopPropagation()  阻止事件冒泡
+                    alert("inputFn")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

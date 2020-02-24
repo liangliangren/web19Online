@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-bind: 绑定属性可以简写为: -->
+        <p v-bind:title="msg">我是一个段落文本1</p>
+        <p :title="msg">我是一个段落文本2</p>
+        <a :href="baidu" :title="msg">百度</a>
+    </div>
+
+
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    msg: "hello",
+                    baidu: "https://www.baidu.com"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

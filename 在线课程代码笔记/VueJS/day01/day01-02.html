@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- {{}} 差值表达式 -->
+        <p>我的信息是:{{msg}}</p>
+        <p>{{1+10}}</p>
+        <p>{{getName()}}</p>
+        <p>{{getAge()}}</p>
+        <p>{{getSex("男")}}</p>
+    </div>
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    msg: "llr",
+                    name: "张三",
+                    age: 18
+                }
+            },
+            methods: {  //定义方法
+                getName: function () {
+                    return "我的名字是:" + this.name
+                },
+                getAge() { //es6中定义方法，采用模版字符串
+                    return `我的年龄是:  ${this.age}`
+                },
+                getSex(sex) {
+                    return `我的性别是:${sex}`
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

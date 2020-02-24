@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- {{}} 差值表达式 -->
+        <p>我的信息是:{{msg}}</p>
+        <p v-text="msg">我的信息是</p>
+        <!-- v-text 跟新文本内容，但是会替换原有的文本信息，如果想局部更新文本本容，可以采用差值表达式{{}} -->
+        <div v-html="ohtml"></div>
+        <div>{{ohtml}}</div>
+        <!-- v-html 更新元素的innerHTML -->
+        <div v-show="flag">我是一个div盒子</div>
+        <!-- v-show 改变元素的display属性，来隐藏或者显示元素   true显示  false隐藏 -->
+        <div v-if="false">我是测试v-if的</div>
+        <!-- v-if和v-show的区别？面试题
+            v-if：1、每次都会删除或者创建元素，false 元素将删除   true重新创建显示
+                  2、有较高的切换性能消耗
+            v-show：1、改变元素的display属性，来隐藏或者显示元素
+                    2、有较高的初始化渲染消耗
+            使用:1、如果元素涉及到频繁的切换，最好不要使用v-if
+                 2、如果元素可能永远也不会被显示出来让用户看到，可以采用v-if
+         -->
+
+        <div v-if="flag1">测试v-if</div>
+        <div v-else>显示</div>
+        <div v-if="type === 'A'">
+            A
+        </div>
+        <div v-else-if="type === 'B'">
+            B
+        </div>
+        <div v-else-if="type === 'C'">
+            C
+        </div>
+        <div v-else>
+            Not A/B/C
+        </div>
+    </div>
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    msg: "llr",
+                    ohtml: "<h1>我是标题1</h1>",
+                    flag: true,
+                    flag1: false,
+                    type: "B"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

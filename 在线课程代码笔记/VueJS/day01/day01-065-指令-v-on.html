@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- v-on: 事件绑定的监听器 可以简写为@-->
+        <button v-on:click="fn">点击事件</button>
+        <button v-on:mouseover="fn">鼠标经过事件</button>
+        <button v-on:dblclick="fn">双击事件</button>
+        <button @mouseout="fn()">鼠标离开事件</button>
+        <button @click="age++">年龄增加</button>
+        <button @click="age--">年龄减少</button>
+        <button @click="ageAdd(5)">使用函数年龄增加</button>
+        <button @click="ageJian(10)">使用函数年龄减少</button>
+        <p>年龄是:{{age}}</p>
+    </div>
+
+
+    <script>
+        //console.log(Vue) Vue构造函数
+        new Vue({
+            el: "#app",    //element  挂在元素，定义一个vue的作用范围
+            data() {      //定义一个方法来保存数据
+                return {
+                    msg: "hello",
+                    age: 18
+                }
+            },
+            methods: {
+                fn() {
+                    alert("hello")
+                },
+                ageAdd(num) {
+                    this.age += num
+                },
+                ageJian(num) {
+                    this.age -= num
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
