@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- v-model 它只能应用在表单元素中
+        input type="text/password/radio/checkbox/email/number..."
+        select
+        textarea
+    -->
+
+    <div id="app">
+        <input type="text" v-model="msg">
+        <!-- v-model 获取表单输入的值-->
+        <div>{{msg}}</div>
+        <input type="button" @click="changeMsg" value="改变msg">
+        <input type="text" v-model="msg">
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr123456"
+                }
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = "改变之后的msg"
+                }
+            }
+        })
+    </script>
+
+    <!-- 双向数据绑定的思路
+        1.将vue中的data中的数据绑定到输入框和文本节点中
+        2.当文本框的内容改变时，vue实例中的data也会同时发生改变
+        3.当data中的内容发生改变时，输入框和文本节点的内容同时发生改变
+    -->
+
+
+</body>
+
+</html>

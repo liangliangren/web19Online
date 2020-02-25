@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text"> <!-- 元素节点 -->
+        hello
+        <!-- 文本节点 -->
+    </div>
+    <script>
+        // DocumentFragment 碎片化文档
+        /*
+        var app = document.getElementById("app")
+        var fragment = document.createDocumentFragment() //定义一个碎片化文档
+        var child;
+        while (child = app.firstChild) {
+            fragment.appendChild(child)
+        }
+        console.log(fragment)
+*/
+        // 碎片化文档将所有的子节点劫持
+
+        function nodeFragMent(node) {
+            var fragment = document.createDocumentFragment() //定义一个碎片化文档
+            var child;
+            while (child = node.firstChild) {
+                fragment.appendChild(child)
+            }
+            return fragment
+        }
+
+        var dom = nodeFragMent(document.getElementById("app"))
+        console.log(dom)
+    </script>
+</body>
+
+</html>

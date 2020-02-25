@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 双向数据绑定的实现原理---面试题
+        1.原理:通过数据劫持结合发布订阅模式的方式来实现的，也就是说数据和视图同步，数据发生改变，视图也会跟着同时发生改变，同样视图数据变化了，数据也会发生变化
+        2.Vue双向数据绑定的核心  Object.defineProperty()方法
+
+        3.介绍Object.defineProperty(obj,prop,method)
+        第一个参数:对象上的属性集合对象
+        第二个参数:修改的属性
+        第三个参数:具体改变的方法  
+    -->
+    <div id="app">
+        <!-- 要实现在输入框中输入内容，同时在box的div中显示数据 -->
+        <input type="text" id="text">
+        <div id="box"></div>
+    </div>
+    <script>
+        console.log(document.getElementById("text").attributes)
+
+        var obj = {} //定义一个空对象
+        var val = "" //初始化表单中的值
+        Object.defineProperty(obj, "val", { //定义要修改对象的属性
+            get: function () {
+                return val;
+            },
+            set: function (newVal) {
+                val = newVal //定义val修改后的内容
+                document.getElementById("text").value = val  //当输入框的内容等于val
+                document.getElementById("box").innerHTML = val
+            }
+        })
+        document.addEventListener("keyup", function (e) {
+            //console.log(e)
+            console.log(e.target.value)
+            obj.val = e.target.value
+        })
+
+        // 简单的说:就是用一个方法Object.defineProperty()来定义一个指，当调用时我们使用它里面的get方法，当我们给这个属性赋值时，调用它内部的set方法
+
+    </script>
+
+</body>
+
+</html>

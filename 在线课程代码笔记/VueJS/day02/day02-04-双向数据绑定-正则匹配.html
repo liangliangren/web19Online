@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg">
+        {{msg}}
+    </div>
+    <script>
+        // 尤雨溪  vue的作者
+
+        // 用正则表达式来匹配 {{abc}} 从而得到abc
+
+        //test() //得到一个布尔值
+        //exec() //得到一个数组，数组的项就是匹配到的字串
+
+        var reg = /\{\{(.*)\}\}/
+        var str = "{{msg}}"
+        console.log(reg.exec(str))  //得到一个数组
+        var a = RegExp.$1
+        // $1时RegExp对象上的属性，获取匹配的字符串,获取到的时第一个匹配的字串
+        //$1/$2...$99  可以有99个匹配项
+        console.log(a)
+
+        var oTime = "2020-02-25"
+
+        //2020
+        //02
+        //25
+        //定义一个正则表达式来匹配  时间格式
+        var reg2 = /^(\d{4})-(\d{1,2})-(\d{1,2})$/
+        console.log(reg2.exec(oTime)) // ["2020-02-25", "2020", "02", "25"]
+        console.log(RegExp.$1)  //2020
+        console.log(RegExp.$2)  //02
+        console.log(RegExp.$3)  //25
+
+        var num = 1
+        console.log(num)
+        var num = 10
+        console.log(num)
+
+    </script>
+</body>
+
+</html>
