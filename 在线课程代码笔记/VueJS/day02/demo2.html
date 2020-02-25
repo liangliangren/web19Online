@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 订阅和发布模式（也成为观察者模式）定义了一种一对多的关系，让多个观察者同时监听某一个主体对象，这个主体对象的状态发生变化时就会通知所有的观察者对象 -->
+    <script>
+        var publish = { //定义一个发布者
+            pubFn: function () {
+                // 执行一个通知
+                zhuti.tongzhi()
+            }
+        }
+
+        // 定义三个订阅者  subscribe
+        var sub1 = {
+            update: function () {
+                console.log(1)
+            }
+        }
+        var sub2 = {
+            update: function () {
+                console.log(2)
+            }
+        }
+        var sub3 = {
+            update: function () {
+                console.log(3)
+            }
+        }
+
+        // 定义一个主体对象
+        function Zhiti() {
+            this.subs = [sub1, sub2, sub3]
+        }
+        Zhiti.prototype.tongzhi = function () {
+            this.subs.forEach(function (sub) {
+                sub.update()
+            })
+        }
+
+        //发布者发布消息，主体对象执行通知tongzhi方法，来触发订阅者里面的update方法
+        var zhuti = new Zhiti()
+
+        publish.pubFn()
+    </script>
+</body>
+
+</html>

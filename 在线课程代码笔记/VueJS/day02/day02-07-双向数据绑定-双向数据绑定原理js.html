@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg">
+        {{msg}}
+    </div>
+    <script>
+        // 双向数据绑定首先要考虑的问题
+        //1.如何将数据绑定到input上面
+        //2.input上面的数据如何绑定大文本上面
+        //MVVM框架
+        //1.定义一个编译函数
+        function compile(node, vm) {  //node指的是<input type="text" v-model="msg">  
+            //vm以后就是new Vue()的实例对象
+            // 定义一个正则表达式，来匹配{{xyz}}中的xyz
+            var reg = /\{\{(.*)\}\}/
+            //nodeType=1为元素节点 //nodeType=3为文本节点 //nodeType=2 为属性节点
+            //节点.attributes  获取到节点的属性集合
+            if (node.nodeType == 1) { //条件成立，说明node这个节点是元素节点
+                var attr = node.attributes;  //获取指定元素的所有属性集合
+                for (let i = 0; i < attr.length; i++) {
+                    if (attr[i].nodeName == "v-model") { //判断属性节点名称为v-model
+                        var name = attr[i].nodeValue  //获取到v-model绑定的属性值，其实就是data中定义的数据 msg
+                        //node.value = vm.data[name]  //将data中的值赋值给node的value
+                        //node.removeAttribute("v-model");  //移除属性
+                        node.addEventListener("input", function (e) { //给node节点上面绑定一个事件 input 事件
+                            vm[name] = e.target.value
+                            //console.log(e.target.value)
+                        });
+                        node.value = vm[name]; //将data的值赋值给node
+                        node.removeAttribute("v-model");
+                    }
+                };
+            }
+            if (node.nodeType == 3) { //如果条件成立说明node是文本节点
+                if (reg.test(node.nodeValue)) { //node.nodeValue={{msg}}
+                    var name = RegExp.$1  //name=msg
+                    name = name.trim();  //trim() 过滤掉字符串前后的空格
+                    // node.nodeValue = vm[name] //将data的值赋给该node节点
+                    new WatchFn(vm, node, name) //不直接赋值，而是通过订阅者，绑定数据
+                }
+            }
+        }
+
+
+        // 碎片化文档将所有的子节点劫持
+        function nodeFragMent(node, vm) {
+            var fragment = document.createDocumentFragment() //定义一个碎片化文档
+            var child;
+            while (child = node.firstChild) {
+                compile(child, vm)
+                fragment.appendChild(child)
+            }
+            return fragment
+        }
+
+        // 创建一个Vue构造函数
+
+        function Vue(json) {
+            this.data = json.data;
+            var data = this.data
+            observe(data, this)
+            var id = json.el.slice(1);
+            var dom = nodeFragMent(document.getElementById(id), this); //使用碎片化文档函数函数
+            //处理完所有的dom节点后，重更新将内容添加会dom节点#app
+            document.getElementById(id).appendChild(dom)
+        }
+
+
+
+
+
+        // alert(document.getElementById("app").firstChild.nextSibling.nodeType)
+        // console.log(document.getElementById("app").firstChild.nextSibling.attributes)
+
+
+        //    第二步 实现view=>model
+        //问题:输入框如何改变data中的数据
+        //需要  给input监听一个键盘事件keyup 
+        //通过  Object.defineProperty() 获取最新的value值，并且赋值给data中的msg
+
+        // 定义一个响应式监听函数，监听表单上面值的变化
+        function defineFn(obj, key, val) {
+            var zhuti = new Zhuti()
+            Object.defineProperty(obj, key, {
+                //3.介绍Object.defineProperty(obj, prop, method)
+                //第一个参数: 对象上的属性集合对象
+                //第二个参数: 修改的属性
+                //第三个参数: 具体改变的方法
+                get: function () {
+                    if (Zhuti.target) {
+                        zhuti.addSub(Zhuti.target)
+                    }
+                    return val
+                },
+                set: function (newVal) {
+                    if (newVal == val) { //如果条件成立说明没有修改值
+                        return;
+                    }
+                    val = newVal;
+                    console.log("改变之后的值:" + val)
+                    zhuti.notify()  //有内容更新，立即通知更新
+                }
+            })
+        }
+
+        //定义一个观察者函数，观察值的变化  observe[əbˈzɜ:v] 观察
+        function observe(obj, vm) {
+            for (let key of Object.keys(obj)) {
+                defineFn(vm, key, obj[key]) //执行上面定义的函数
+            }
+        }
+
+
+        //第三步:model=>view
+
+        //订阅和发布模式（也成为观察者模式）定义了一种一对多的关系，让多个观察者同时监听某一个主体对象，这个主体对象的状态发生变化时就会通知所有的观察者对象
+
+
+
+        // 定义一个主体对象
+        function Zhuti() {
+            this.subs = []
+        }
+        Zhuti.prototype = {
+            addSub(sub) {
+                this.subs.push(sub)
+            },
+            notify() {
+                this.subs.forEach(function (sub) {
+                    sub.update()
+                })
+            }
+        }
+        // 定义一个订阅者
+        function WatchFn(vm, node, name) {
+            Zhuti.target = this   //Zhuti.target是一个全局变量
+            this.vm = vm;
+            this.node = node;
+            this.name = name;
+            this.update()
+            Zhuti.target = null
+            console.log(this)
+        }
+        WatchFn.prototype = {
+            update() {
+                this.get();
+                this.node.nodeValue = this.value
+            },
+            get() {
+                this.value = this.vm[this.name]
+            }
+        }
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello"
+            }
+        })
+
+
+
+        //总结
+        //1.实现内容(vue实力中data中数据的msg)的绑定
+            //如何绑定值输入框上input和如何将值绑定到文本上面 {{}}  参考day02-05
+
+        //2.实现view到model
+            //考虑通过输入框改变，data中的值  day02-06
+
+        //3.实现model到view
+            //发布者和订阅者  demo2
+
+    </script>
+</body>
+
+</html>

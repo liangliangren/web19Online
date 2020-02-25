@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg">
+        {{msg}}
+    </div>
+    <script>
+        // 双向数据绑定首先要考虑的问题
+        //1.如何将数据绑定到input上面
+        //2.input上面的数据如何绑定大文本上面
+        //MVVM框架
+        //1.定义一个编译函数
+        function compile(node, vm) {  //node指的是<input type="text" v-model="msg">  
+            //vm以后就是new Vue()的实例对象
+            // 定义一个正则表达式，来匹配{{xyz}}中的xyz
+            var reg = /\{\{(.*)\}\}/
+            //nodeType=1为元素节点 //nodeType=3为文本节点 //nodeType=2 为属性节点
+            //节点.attributes  获取到节点的属性集合
+            if (node.nodeType == 1) { //条件成立，说明node这个节点是元素节点
+                var attr = node.attributes;  //获取指定元素的所有属性集合
+                for (let i = 0; i < attr.length; i++) {
+                    if (attr[i].nodeName == "v-model") { //判断属性节点名称为v-model
+                        var name = attr[i].nodeValue  //获取到v-model绑定的属性值，其实就是data中定义的数据 msg
+                        node.value = vm.data[name]  //将data中的值赋值给node的value
+                        node.removeAttribute("v-model");  //移除属性
+                    }
+                };
+            }
+            if (node.nodeType == 3) { //如果条件成立说明node是文本节点
+                if (reg.test(node.nodeValue)) { //node.nodeValue={{msg}}
+                    var name = RegExp.$1  //name=msg
+                    name = name.trim();  //trim() 过滤掉字符串前后的空格
+                    node.nodeValue = vm.data[name] //将data的值赋给该node节点
+                }
+            }
+        }
+
+
+        // 碎片化文档将所有的子节点劫持
+        function nodeFragMent(node, vm) {
+            var fragment = document.createDocumentFragment() //定义一个碎片化文档
+            var child;
+            while (child = node.firstChild) {
+                compile(child, vm)
+                fragment.appendChild(child)
+            }
+            return fragment
+        }
+
+        // 创建一个Vue构造函数
+
+        function Vue(json) {
+            this.data = json.data;
+            var id = json.el.slice(1);
+            var dom = nodeFragMent(document.getElementById(id), this); //使用碎片化文档函数函数
+            //处理完所有的dom节点后，重更新将内容添加会dom节点#app
+            document.getElementById(id).appendChild(dom)
+        }
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                msg: "hello everyone",
+                text: "测试其他属性"
+            }
+        })
+
+
+
+        // alert(document.getElementById("app").firstChild.nextSibling.nodeType)
+       // console.log(document.getElementById("app").firstChild.nextSibling.attributes)
+
+    </script>
+</body>
+
+</html>
