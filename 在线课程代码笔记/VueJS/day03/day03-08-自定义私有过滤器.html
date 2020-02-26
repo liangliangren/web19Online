@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg|changeMsg("**")}}</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "今天在淘宝上面买了好多好吃的东西，我很喜欢淘宝购物"
+                }
+            },
+            filters: { //自定义私有过滤器
+                changeMsg: function (msg1, args) {
+                    console.log(msg1)
+                    return msg1.replace(/淘宝/g, args)
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

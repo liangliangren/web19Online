@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1 style="color: red; font-style: italic; text-decoration: line-through;">直接添加style样式</h1>
+
+        <h1 :style="objStyle">绑定样式</h1>
+
+        <h1 :style=[objStyle,objStyle2]>绑定样式-多个对象</h1>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr",
+                    objStyle: { "color": "green", "font-style": "italic" },
+                    objStyle2: { "text-decoration": "line-through" }
+                }
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+</html>

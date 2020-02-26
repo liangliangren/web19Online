@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 自定义全局指令 -->
+        <!-- v-red  指令名称 red-->
+        <div v-red>自定指令显示红色</div>
+        <p v-red>看看我是什么颜色</p>
+        <input type="text" value="" v-red>
+        <p v-green-text>看看我是一个什么颜色的文字</p>
+    </div>
+    <div id="box">
+        <div v-red>我是box中的div</div>
+    </div>
+    <script>
+        // 注册一个全局指令red
+        Vue.directive("red", {
+            //bind只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置。
+            bind: function (el, binding) { //初始化样式
+                //el指令挂载的元素
+                console.log(el) //el其实就是使用指令的dom节点
+                console.log(binding) //一个对象
+                el.style.color = "red"
+            },
+            inserted: function (el) {
+                //被绑定元素插入父节点时调用
+                // 聚焦元素
+                el.focus() //输入框获取焦点时触发指令
+            }
+        })
+
+        // 注意:驼峰命名方式的指令名greenText，在使用时候 v-green-text
+        Vue.directive("greenText", {
+            bind: function (el, binding) { //初始化样式
+                //el指令挂载的元素
+                console.log(el) //el其实就是使用指令的dom节点
+                console.log(binding) //一个对象
+                el.style.color = "green"
+            }
+        })
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr"
+                }
+            }
+        })
+        new Vue({
+            el: "#box"
+        })
+    </script>
+</body>
+
+</html>

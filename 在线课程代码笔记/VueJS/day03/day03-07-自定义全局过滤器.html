@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{msg|changeMsg("**","abc")}}</p>
+    </div>
+    <div id="box">
+        <p>{{msg|changeMsg("**","")}}</p>
+    </div>
+    <script>
+        // 自定义一个全局过滤器
+        Vue.filter("changeMsg", function (msg, args, args2) {
+            console.log(msg) //代表原来的值
+            //args 使用过滤器传递的参数
+            return msg.replace(/淘宝/g, args + args2)
+        })
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "今天在淘宝上面买了好多好吃的东西，我很喜欢淘宝购物"
+                }
+            }
+        })
+        new Vue({
+            el: "#box",
+            data() {
+                return {
+                    msg: "今天在淘宝上面买了好多好吃的东西，我很喜欢淘宝购物"
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

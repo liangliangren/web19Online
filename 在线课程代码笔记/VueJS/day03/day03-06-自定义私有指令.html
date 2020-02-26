@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 自定义私有指令 -->
+        <!-- v-red  指令名称 red-->
+        <div v-red>自定指令显示红色</div>
+        <p v-red>看看我是什么颜色</p>
+        <input type="text" value="" v-red>
+        <p v-red-text>redText私有指令</p>
+    </div>
+    <div id="box">
+        <div v-red>我是box中的div</div>
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr"
+                }
+            },
+            directives: { //自定义一个私有指令
+                red: {  //red就是指令名称
+                    bind: function (el) {
+                        el.style.color = "red"
+                    },
+                    inserted: function () {
+                        el.foucs()
+                    }
+                },
+                redText: {
+                    bind: function (el) {
+                        el.style.color = "red"
+                    }
+                }
+            }
+        })
+        new Vue({
+            el: "#box"
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .fs50 {
+            font-size: 50px;
+        }
+
+        .un {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h1 class="red fs50 un">好好学习天天向上</h1>
+        <h1 :class=["red","fs50"]>好好学习天天向上</h1>
+        <!-- 使用三目运算符，让class类有效或者失效 -->
+        <h1 :class=["red","fs50",flag?"un":""]>好好学习天天向上</h1>
+        <button @click="changeClass">修改样式</button>
+        <h1 :class=["red","un",{"fs50":flag}]>好好学习天天向上</h1>
+        <h1 :class="classObj">调用data中的classObj来添加样式</h1>
+
+
+        <!-- 总结
+            1.可以直接添加class="red fs50 un"
+            2.可以通过v-bind: 简写为: :class=["red","fs50"]
+            3.使用三目运算符:class=["red","fs50",flag?"un":""]
+            4.:class=["red","un",{"fs50":flag}] 数组中对象使用布尔值
+            5.使用v-bind:绑定一个在data中定义好的对象classObj: { "red": true, "fs50": true }
+        -->
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    flag: false,
+                    msg: "llr",
+                    classObj: { "red": true, "fs50": true }
+                }
+            },
+            methods: {
+                changeClass() {
+                    console.log(this)
+                    this.flag = !this.flag
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

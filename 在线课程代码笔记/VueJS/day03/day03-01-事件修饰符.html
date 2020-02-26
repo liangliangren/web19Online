@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" @keyup.17="fn">
+        <input type="button" value="绑定多个事件" v-on="{ mousedown: doThis, mouseup: doThat }">
+        <!-- v-on 可以同时绑定多个事件 -->
+    </div>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr"
+                }
+            },
+            methods: {
+                fn(e) {
+                    console.log(e.keyCode)
+                    // alert("我点击了回车键")
+                },
+                doThis() {
+                    console.log("mousedown")
+                },
+                doThat() {
+                    console.log("mouseup")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
