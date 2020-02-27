@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 使用template作为模板标签 
+         注意事项:在模板中，必须有一个根元素，包裹着其他所有元素
+    -->
+    <template id="temp">
+        <div>
+            <h1>我是标题1---{{msg}}</h1>
+            <ul>
+                <li v-for="list in lists" :key="list.id">{{list.title}}</li>
+            </ul>
+            <button @click="changeMsg">修改msg</button>
+        </div>
+    </template>
+
+    <div id="app">
+        <abc></abc>
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            components: {  //私有组件
+                abc: {
+                    template: "#temp",
+                    data() {
+                        return {
+                            msg: "llr",
+                            lists: [{
+                                id: 1,
+                                title: "私有组件列表1"
+                            }]
+                        }
+                    },
+                    methods: {
+                        changeMsg() {
+                            this.msg = "hello"
+                        }
+                    }
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>

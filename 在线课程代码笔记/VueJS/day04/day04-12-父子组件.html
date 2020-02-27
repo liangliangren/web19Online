@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .bg {
+            background-color: red;
+        }
+
+        .outBg {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <template id="temp">
+        <div>
+            <p>子组件：{{str}}</p>
+        </div>
+    </template>
+    <!-- 父子组件 -->
+    <div id="app">
+        <p>父组件: <input type="text" v-model="text"></p>
+        <p>直接使用父组件数据:{{text}}</p>
+        <myvue :str="text"></myvue>
+        <!-- myvue就是子组件 -->
+    </div>
+
+    <!-- 需求：想让子组件使用父组件定义的数据 
+        1.在子组件中使用props:["str"]
+        2.在子组件使用的时候通过v-bind来绑定属性
+    -->
+
+    <script>
+        new Vue({
+            el: "#app",
+            data() { //定义父组件数据,这里面定义的数据在父组件中可以直接调用
+                return {
+                    text: "hello-我是父组件数据"
+                }
+            },
+            components: {
+                myvue: {//定义一个私有的子组件myvue
+                    template: "#temp",
+                    props: ["str"]
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

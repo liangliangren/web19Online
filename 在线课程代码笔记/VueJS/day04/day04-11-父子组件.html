@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .bg {
+            background-color: red;
+        }
+
+        .outBg {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 父子组件 -->
+    <div id="app">
+        <p>父组件: <input type="text"></p>
+        <abc></abc>
+        <myvue></myvue>
+        <!-- abc就是子组件 -->
+        <!-- abc和myvue兄弟组件 -->
+    </div>
+    <div id="app2">
+        <abc></abc>
+    </div>
+    <script>
+        new Vue({
+            el: "#app"
+        })
+        new Vue({
+            el: "#app2"
+        })
+    </script>
+</body>
+
+</html>

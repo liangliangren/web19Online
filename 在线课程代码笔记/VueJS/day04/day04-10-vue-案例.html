@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .bg {
+            background-color: red;
+        }
+
+        .outBg {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 使用template作为模板标签 
+         注意事项:在模板中，必须有一个根元素，包裹着其他所有元素
+    -->
+    <template id="temp">
+        <div>
+            <div>
+                <p>姓名:<input type="text" v-model="userinfo.name" placeholder="姓名"></p>
+                <p>年龄:<input type="text" v-model="userinfo.age" placeholder="年龄"></p>
+                <p>性别:
+                    <select v-model="userinfo.sex">
+                        <option value="0" selected>女</option>
+                        <option value="1">男</option>
+                    </select>
+                </p>
+                <p>
+                    <button @click="addFn">添加</button>
+                    <button @click="resetFn">重置</button>
+                </p>
+            </div>
+            <table border="1" width="500">
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(list,index) in lists" align="center" :class="[{'bg':index%2==1},{'outBg':list.flag}]"
+                        @mouseover="overFn(index)" @mouseout="outFn(index)">
+                        <td>{{list.name}}</td>
+                        <td>{{list.age}}</td>
+                        <td>{{list.sex==0?"女":"男"}}</td>
+                        <td><button @click="deleteFn(index)">删除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <div id="app">
+        <my-table>
+        </my-table>
+    </div>
+
+
+
+    <script>
+        new Vue({
+            el: "#app",
+            components: {  //私有组件
+                myTable: {
+                    template: "#temp",
+                    data() {
+                        return {
+                            userinfo: {
+                                name: "",
+                                age: "",
+                                sex: "",
+                                flag: false
+                            },
+                            lists: [{
+                                name: "李四",
+                                age: 28,
+                                sex: 0,
+                                flag: false
+                            }, {
+                                name: "王五",
+                                age: 38,
+                                sex: 1,
+                                flag: false
+                            }]
+                        }
+                    },
+                    methods: {
+                        addFn() { //添加
+                            this.lists.push(this.userinfo)
+                            this.userinfo = {
+                                name: "",
+                                age: "",
+                                sex: "",
+                                flag: false
+                            }
+                        },
+                        resetFn() {  //重置事件
+                            this.userinfo = {
+                                name: "",
+                                age: "",
+                                sex: ""
+                            }
+                        },
+                        deleteFn(index) { //删除
+                            console.log(index)
+                            this.lists.splice(index, 1)
+                        },
+                        overFn(index) {
+                            console.log(this.lists[index])
+                            this.lists[index].flag = true
+                        },
+                        outFn(index) {
+                            console.log("out" + index)
+                            this.lists[index].flag = false
+                        }
+                    }
+                }
+            }
+        })
+
+
+    </script>
+</body>
+
+</html>
