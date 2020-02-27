@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 使用template作为模板标签 
+         注意事项:在模板中，必须有一个根元素，包裹着其他所有元素
+    -->
+    <template id="temp">
+        <div>
+            <h1>我是标题1---{{msg}}</h1>
+            <ul>
+                <li v-for="list in lists" :key="list.id">{{list.title}}</li>
+            </ul>
+            <button @click="changeMsg">修改msg</button>
+        </div>
+    </template>
+
+    <div id="app">
+        <abc></abc>
+    </div>
+
+    <div id="app2">
+        <!-- 使用组件 -->
+        <abc></abc>
+    </div>
+
+    <script>
+
+        // 直接注册全局组件，可以在多个vue实例中公用
+        Vue.component("abc", {
+            //abc代表组件名称，遵循命名规范任意定义
+            //如果采用驼峰是命名  如:myVue  在使用时 <my-vue></my-vue>
+            //template: "<h1>我是标题1</h1>"
+            template: "#temp",
+            data() {
+                return {
+                    msg: "llr",
+                    lists: [{
+                        id: 1,
+                        title: "列表001"
+                    }, {
+                        id: 2,
+                        title: "列表002"
+                    }, {
+                        id: 3,
+                        title: "列表003"
+                    }, {
+                        id: 4,
+                        title: "列表004"
+                    }]
+                }
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = "自定义组件中的方法"
+                }
+            }
+        })
+
+        new Vue({
+            el: "#app"
+        })
+        new Vue({
+            el: "#app2"
+        })
+
+    </script>
+</body>
+
+</html>

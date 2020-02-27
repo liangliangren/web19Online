@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <abc></abc>
+    </div>
+
+    <script>
+        // 使用vue的构造器 Vue.extend("扩展的内容")
+        //1.扩展vue组件
+        var myVue = Vue.extend({
+            // template主要定义模板，属性是固定的
+            template: `<ul>
+            <li>列表1</li>
+            <li>列表2</li>
+            <li>列表3</li>
+            <li>列表4</li>
+        </ul> `
+        })
+        //2.注册扩展的组件
+        Vue.component("abc", myVue)
+
+        new Vue({
+            el: "#app"
+        })
+
+    </script>
+</body>
+
+</html>

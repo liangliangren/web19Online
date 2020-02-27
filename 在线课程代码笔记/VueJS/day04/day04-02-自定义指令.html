@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 自定义全局指令 -->
+        <!-- v-red  指令名称 red-->
+        <div v-red>自定指令显示红色</div>
+        <input type="text" v-red>
+        <input type="text">
+    </div>
+
+    <script>
+        // 注册一个全局指令red
+        Vue.directive("red", function (el) { //默认的bind
+            console.log(el)
+            el.style.color = "red"
+        })
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr"
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- computed 计算属性 -->
+        <button @click="a++">修改a的值</button>
+        <button @click="b++">修改b的值</button>
+        <p>a的值为:{{a}}</p>
+        <p>b的值为:{{b}}</p>
+        <!-- 通过methods定义使用 -->
+        <!-- <p>通过方法改变a:{{changeA()}}</p>
+        <p>通过方法改变b:{{changeB()}}</p> -->
+
+        <!-- 通过计算属性定义使用 -->
+        <p>通过方法改变a:{{changeA}}</p>
+        <p>通过方法改变b:{{changeB}}</p>
+    </div>
+
+    <script>
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    a: 0,
+                    b: 0
+                }
+            },
+            methods: { //定义方法，方法中不一定有返回值
+                // changeA() {
+                //     console.log("我是changeA方法")
+                //     return this.a
+                // },
+                // changeB() {
+                //     console.log("我是changeB方法")
+                //     return this.b
+                // }
+            },
+            computed: { //计算属性，必须有返回值 return，使用时直接使用属性   如:changeA
+                changeA: function () { //es5的写法
+                    console.log("我是changeA方法")
+                    return this.a
+                },
+                changeB() { //es6的写法
+                    console.log("我是changeB方法")
+                    return this.b
+                }
+            }
+
+
+        })
+
+    </script>
+</body>
+
+</html>

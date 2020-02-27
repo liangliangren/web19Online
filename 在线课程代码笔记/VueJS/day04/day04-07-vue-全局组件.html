@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 使用template作为模板标签 
+         注意事项:在模板中，必须有一个根元素，包裹着其他所有元素
+    -->
+    <template id="temp">
+        <div>
+            <h1>我是标题1</h1>
+            <ul>
+                <li>列表1</li>
+                <li>列表2</li>
+                <li>列表3</li>
+                <li>列表4</li>
+            </ul>
+        </div>
+    </template>
+
+    <!-- 可以用script标签作为模板 -->
+    <script type="text/x-template" id="temps">
+        <ul>
+            <li>列表1-1</li>
+            <li>列表2-1</li>
+            <li>列表3-1</li>
+            <li>列表4-1</li>
+        </ul>
+    </script>
+
+
+    <div id="app">
+        <abc></abc>
+        <my-vue></my-vue>
+    </div>
+    <div id="app2">
+        <abc></abc>
+    </div>
+    <script>
+
+        // 直接注册全局组件，可以在多个vue实例中公用
+        Vue.component("abc", {
+            //template: "<h1>我是标题1</h1>"
+            template: "#temp"
+        })
+
+        Vue.component("myVue", {
+            //template: "<h1>我是标题1</h1>"
+            template: "#temps"
+        })
+
+        new Vue({
+            el: "#app"
+        })
+        new Vue({
+            el: "#app2"
+        })
+
+    </script>
+</body>
+
+</html>

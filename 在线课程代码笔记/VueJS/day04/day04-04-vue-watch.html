@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- watch 一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。 -->
+        <input type="text" ref="a" @keyup="changeMsg">
+        {{msg}}
+
+        <input type="text" ref="b" @keyup="changeObj">
+        {{obj.title}}
+    </div>
+
+    <script>
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "hello",
+                    obj: {
+                        title: "abc"
+                    }
+                }
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = this.$refs.a.value
+                },
+                changeObj() {
+                    // console.log(this.obj.title)
+                    this.obj.title = this.$refs.b.value
+                }
+            },
+            watch: {  //监视data中数据的变化，msg必须在data中定义
+                msg(val, oldval) {
+                    console.log("新值为:" + val + "-----变化之前的值:" + oldval)
+                },
+                obj: { //深度监视，可以监视对象，数组的变化
+                    handler(val, oldval) {  //handler 处理者函数
+                        console.log("新值为:" + val.title + "-----变化之前的值:" + oldval.title)
+                    },
+                    deep: true //深度监视
+                }
+            },
+            directives: { //自定义私有指令
+
+            },
+            filters: { //自定义私有过滤器
+
+            }
+
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 通过ref属性设置一个值val，在vue实例中通过this.$refs.val 来获取到节点 -->
+        <input type="text" ref="name" value="" @keyup="getName">
+        <input type="button" @click="getName" value="按钮">
+        <div>{{msg}}</div>
+
+        <div id="box">box盒子</div>
+        <input type="button" @click="getByIdFn" value="按钮">
+    </div>
+
+    <script>
+
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: ""
+                }
+            },
+            methods: {
+                getName() {
+                    console.log(this.$refs.name)
+                    //<input type="text" ref="name" value="" @keyup="getName">
+                    this.msg = this.$refs.name.value
+                },
+                getByIdFn() {
+                    var oBox = document.getElementById("box");
+                    console.log(oBox)
+                    oBox.style.color = "red"
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>
