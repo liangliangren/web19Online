@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <style>
+        .router-link-active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- router-link 用来切换显示的组件，或者跳转路由
+            to属性 显示跳转到组件的地址
+        -->
+        <router-link to="/home">首页</router-link>
+        <router-link to="/product">产品中心</router-link>
+
+        <!-- router-view 显示组件的容器 -->
+        <router-view></router-view>
+    </div>
+
+    <script>
+        //配置路由
+        var router = new VueRouter({
+            routes: [{ //配置路由的规格
+                path: "/home", //配置路径
+                component: {  //路径下面对应的组件
+                    template: "<h1>我是首页组件</h1>"
+                }
+            }, {
+                path: "/product",
+                component: {
+                    template: "<h1>产品页面组件</h1>"
+                }
+            }]
+        })
+        new Vue({
+            el: "#app",
+            //router: router //属性和属性值一样可以简写为一个
+            router
+        })
+    </script>
+</body>
+
+</html>

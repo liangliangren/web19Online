@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+    <div id="app2">
+        {{msg}}
+    </div>
+    <script>
+        var vm = new Vue({
+            data() {
+                return {
+                    msg: "llr"
+                }
+            },
+            mytext: "自定义属性",
+            myfn: function () {
+                console.log("我是自定义的方法")
+            }
+        })
+        vm.$mount("#app")
+        console.log(vm.$options.mytext) //获取自定义的属性
+        vm.$options.myfn() //执行自定义的方法
+        //$options用于当前 Vue 实例的初始化选项。需要在选项中包含自定义属性时会有用处：
+        //如果 Vue 实例在实例化时没有收到 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 vm.$mount() 手动地挂载一个未挂载的实例。
+        new Vue({
+            data() {
+                return {
+                    msg: "hello"
+                }
+            }
+        }).$mount("#app2")
+    </script>
+</body>
+
+</html>

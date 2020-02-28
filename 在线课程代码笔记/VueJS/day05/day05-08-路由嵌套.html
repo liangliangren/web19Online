@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.1.6/dist/vue-router.js"></script>
+    <style>
+        .router-link-active {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <template id="homePage">
+        <div>
+            <h1>我是首页组件</h1>
+            <!-- 在home组件中配置子路由跳转链接 -->
+            <router-link to="/home/login">登录</router-link>
+            <router-link to="/home/reg">注册</router-link>
+            <!-- 配置子路由组件显示的容器 -->
+            <router-view></router-view>
+        </div>
+    </template>
+    <template id="newsPage">
+        <div>
+            <h1>我是新闻组件</h1>
+        </div>
+    </template>
+    <template id="loginPage">
+        <div>
+            <h3>我是登录页面</h3>
+        </div>
+    </template>
+    <template id="regPage">
+        <div>
+            <h3>我是注册页面</h3>
+        </div>
+    </template>
+    <div id="app">
+        <div>
+            <router-link to="/home">首页</router-link>
+            <router-link to="/news">新闻</router-link>
+        </div>
+        <router-view></router-view>
+    </div>
+    <script>
+        //定义路由组件
+        let Home = { template: "#homePage" }
+        let News = { template: "#newsPage" }
+        //登录和注册这两个组件在首页中嵌套
+        let Login = { template: "#loginPage" }
+        let Reg = { template: "#regPage" }
+
+        //定义路由
+        let routes = [{
+            path: "/",
+            redirect: "/home"  //重定向
+        }, {
+            path: "/home",
+            component: Home,
+            children: [{ //配置子路由
+                path: "/home/login",
+                component: Login
+            }, {
+                path: "/home/reg",
+                component: Reg
+            }]
+        }, {
+            path: "/news",
+            component: News
+        }]
+
+        let router = new VueRouter({
+            routes
+        })
+
+        new Vue({
+            el: "#app",
+            router
+        })
+    </script>
+</body>
+
+</html>
