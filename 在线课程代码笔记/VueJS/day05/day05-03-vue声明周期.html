@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{msg}}
+        <button @click.stop="changeMsg">修改msg</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "llr"
+                }
+            },
+            methods: {
+                changeMsg() {
+                    this.msg = "修改之后的msg"
+                }
+            },
+            beforeCreate: function () {
+                console.log("创建之前")
+                console.log(this.$el)  //undefined
+                console.log(this.$data) //undefined
+                //这个生命周期内不能操作dom和数据
+
+            },
+            created: function () {
+                console.log("创建完毕")
+                console.log("created---" + this.$el) //undefined
+                console.log("created---" + this.$data) //数据已经初始化
+                //这个生命周期内元素还没有挂在dom，数据已经初始化了，可以修改数据了
+
+            },
+            beforeMount: function () {
+                console.log("模板编译之前")
+                console.log("模板编译之前---" + this.$el)
+                console.log("模板编译之前---" + this.$data)
+
+            },
+            mounted: function () {
+                console.log("模板编译完成")
+                //可以对数据进行一些列的操作
+                // this.changeMsg()
+            },
+            beforeUpdate: function () {
+                //没有更新数据这个生命周期里面的内容不会执行
+                console.log("更新之前")
+            },
+            updated: function () {
+                console.log("数据更新完毕")
+            },
+            beforeDestroy: function () {
+                console.log("销毁之前")
+            },
+            destroyed: function () {
+                console.log("销毁之后")
+            }
+        })
+
+        document.onclick = function () {
+            //vm  就是new的vue实例
+            vm.$destroy(); //销毁实例
+            //实例对象一旦销毁，实例上面的所有属性方法都失效
+        }
+
+    </script>
+</body>
+
+</html>

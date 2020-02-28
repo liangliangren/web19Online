@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <!-- 需求：在子组件中输入数据，父组件中能够获取 -->
+
+    <template id="temp">
+        <div>
+            <p>子组件:
+                <input type="text" v-model="text">
+                <button @click="setText">子组件按钮</button>
+            </p>
+        </div>
+    </template>
+    <div id="app">
+        <p>父组件:{{msg}}</p>
+        <my-vue v-on:myevent="getText"></my-vue>
+    </div>
+    <script>
+        Vue.component("myVue", {
+            template: "#temp",
+            data() {
+                return {
+                    text: "子组件数据"
+                }
+            },
+            methods: {
+                setText() {
+                    //$emit()
+                    //第一个参数自定义的事件
+                    //第二个参数传递的数据，如果数据有多个，可以写成数组或对象的形式
+                    // console.log(this)
+                    this.$emit("myevent", this.text)
+                }
+            }
+        })
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    msg: "hello"
+                }
+            },
+            methods: {
+                getText(data) {
+                    console.log(data) //data就是子组件发生出来的数据
+                    this.msg = data
+                }
+            }
+        })
+
+// 子传父
+        //1.在子组件中通过$emit("自定义事件",子组件数据)，来发送数据
+        //2.在父组件中使用子组件的时候同过v-on:子组件中定义的自定义事件="父组件定义获取数据的方法"
+        //3.父组件定义获取数据的方法的参数data就是子组件发送出来的数据
+
+    </script>
+</body>
+
+</html>
