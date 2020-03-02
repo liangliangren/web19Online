@@ -1,0 +1,2 @@
+1/ cnpm install 下载以来
+2/ node server.js启动

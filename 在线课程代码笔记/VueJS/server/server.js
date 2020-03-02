@@ -11,8 +11,30 @@
 
 //删除数据  DELETE FROM `user`   删除user表中所有的数据
 
-
 //新建一个数据库名称为 shop
 
 //在shop数据库中新建user 表     user_id, user_name,login_password,user_phone,user_sex,user_age
 
+
+// 需要的模块
+//express  搭建服务器
+//body-parser  //处理表单通过post提交的文本数据   req.body
+//cookie-parser //设置cookie
+//cookie-session //设置登录用户不造作界面多长时间自动退出
+//mysql //连接mysql数据库
+
+//cnpm install 模块名 --save
+
+const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
+const mysql = require("mysql");
+
+const server = new express(); //new关键字也可以省掉
+server.listen(3000, () => {
+    console.log("3000running")
+})
+
+let fn = require("./route/index.js")
+server.use("/api", fn())  //http://localhost:3000/api/product
