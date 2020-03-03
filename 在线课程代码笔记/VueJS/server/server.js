@@ -1,4 +1,7 @@
 //查询语句 SELECT user_name,user_age FROM `user` WHERE user_age >= 18 AND user_age < 30
+//模糊查询 SELECT * FROM product WHERE product_name LIKE "%关键字%"
+
+
 //插入语句 INSERT INTO `user` (user_name) VALUES ("liang")
 //插入语句 INSERT INTO `user` (user_name,login_password,user_phone,user_age) VALUES ("靓靓人","123456","13673618137","28")
 //插入语句 INSERT INTO 表名 (字段1,字段2,...) VALUES (值1,值2,...)
@@ -33,6 +36,21 @@ const mysql = require("mysql");
 
 const server = new express(); //new关键字也可以省掉
 
+//后台允许前端跨域请求数据开始
+server.all('*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+
+    if (req.method == 'OPTIONS') {
+        res.send(200);
+        /make the require of options turn back quickly/
+    } else {
+        next();
+    }
+});
+//后台允许前端跨域请求数据结束
+
 // 使用bodyParser
 server.use(bodyParser.urlencoded({
     extended: false
@@ -46,7 +64,6 @@ server.listen(3000, () => {
 (() => {
     //使用cookie-parser
     server.use(cookieParser())
-
     let sessionArr = [];
     for (let i = 0; i < 10000; i++) {
         sessionArr[i] = "hello-everyone" + Math.random() * 100 + i

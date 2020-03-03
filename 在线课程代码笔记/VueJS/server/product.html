@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+</head>
+
+<body>
+    <ul id="list">
+        <li>
+            <a href="">
+                <img src="https://x.dscmall.cn/storage/images/201703/thumb_img/0_thumb_G_1490175557366.jpg" alt="">
+                <h2>平板电视</h2>
+                <p>5999</p>
+            </a>
+        </li>
+    </ul>
+    <script>
+        $.ajax({
+            url: "http://localhost:3000/api/product",
+            type: "get",
+            success: function (res) {
+                console.log(res)
+                var listData = res
+                var str = ""
+                for (var i = 0; i < listData.length; i++) {
+                    str += `<li>
+                    <a href="">
+                        <img src="${listData[i].product_img_url}" alt="">
+                        <h2>${listData[i].product_name}</h2>
+                        <p>${listData[i].product_price}</p>
+                    </a>
+                </li>`
+                }
+                $("#list").html(str)
+            }
+        })
+    </script>
+</body>
+
+</html>

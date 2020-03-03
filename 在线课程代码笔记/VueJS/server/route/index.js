@@ -106,6 +106,39 @@ module.exports = () => {
         })
     })
 
+    //模糊搜索接口
+    //SELECT * FROM product WHERE product_name LIKE "%电%"
+    route.get("/search", (req, res) => {
+        //产品价格
+        //产品名称
+        //localhost:3000/api/search?keywords=电&price=5999
+        //http://localhost:3000/api/search?keywords=&price=3999
+        console.log(req.query) //{ keywords: '电', price: '5999' }
+        let keywords = req.query.keywords
+        let price = req.query.price
+        let kwSql = `SELECT * FROM product WHERE product_name LIKE "%${keywords}%"`
+        let priceSql = `SELECT * FROM product WHERE product_price LIKE "%${price}%"`
+        if (keywords != "") {
+            getSearchFn(kwSql, res)
+        } else if (price != "") {
+            getSearchFn(priceSql, res)
+        }
+    })
+    function getSearchFn(sqlStr, res) {
+        db.query(sqlStr, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send("database err").end()
+            } else {
+                if (data.length == 0) {
+                    res.send("没有查询到相关数据").end()
+                } else {
+                    res.send(data).end()
+                }
+            }
+        })
+    }
+
     //用户注册
     route.post("/register", (req, res) => {
         //console.log(req.body.user_name)
