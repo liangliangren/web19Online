@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql");
+const md5 = require("md5-node");
 const db = mysql.createPool({
     host: "localhost",  //数据库连接地址  域名或者ip地址
     user: "root",  //mysql的用户名  默认root
@@ -105,7 +106,72 @@ module.exports = () => {
         })
     })
 
+    //用户注册
+    route.post("/register", (req, res) => {
+        //console.log(req.body.user_name)
+        //console.log(req.body.login_password)
+        let user_name = req.body.user_name;
+        let login_password = md5(req.body.login_password)
+        let user_phone = req.body.user_phone
+        //INSERT INTO user (user_name,login_password) VALUES ("hello","123456")
+        let userSql = `INSERT INTO user (user_name,login_password,user_phone) VALUES ('${user_name}','${login_password}','${user_phone}')`
 
+        db.query(userSql, (err) => {
+            if (err) {
+                console.log("服务器异常")
+            } else {
+                res.send({ "status": "success", "msg": "注册成功" }).end()
+            }
+        })
+    })
+    //登录接口
+    route.post("/login", (req, res) => {
+        console.log(req.body.user_name)
+        let username = req.body.user_name;
+        let password = md5(req.body.login_password)
+        //SELECT * FROM user WHERE user_name="llr"
+        let loginSql = `SELECT * FROM user WHERE user_name='${username}'`
+        db.query(loginSql, (err, data) => {
+            if (err) {
+                console.log(err)
+                res.send({ "status": 0, "msg": "服务器出错了" }).end()
+            } else {
+                if (data.length == 0) {
+                    res.send({ "status": "-1", "msg": "该用户不存在" }).end()
+                } else {
+                    console.log(data[0].login_password)
+                    if (password === data[0].login_password) {
+                        req.session["user_id"] = data[0].user_id
+                        res.send({ "status": "1", "msg": "登录成功" }).end()
+                    } else {
+                        res.send({ "status": "-2", "msg": "密码不正确" }).end()
+                    }
+                }
+            }
+        })
+    })
+
+    //用户信息接口
+    route.get("/userinfo", (req, res) => {
+        //localhost:3000/api/userinfo?uid=1
+        //req.query.uid
+        //SELECT user_name,user_phone,user_photo FROM user WHERE user_id=1
+        let uid = req.query.uid
+        console.log("session-id:" + req.session["user_id"])
+        let userinfoSql = `SELECT user_name,user_phone,user_photo FROM user WHERE user_id=${uid}`
+        db.query(userinfoSql, (err, data) => {
+            if (err) {
+                console.log(err)
+                res.send({ "status": 0, "msg": "服务器出错了" }).end()
+            } else {
+                if (data.length == 0) {
+                    res.status(500).send("没有数据").end()
+                } else {
+                    res.send({ "status": "success", "msg": data[0] }).end()
+                }
+            }
+        })
+    })
 
 
 

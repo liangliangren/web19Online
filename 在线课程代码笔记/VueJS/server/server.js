@@ -32,9 +32,31 @@ const cookieSession = require("cookie-session");
 const mysql = require("mysql");
 
 const server = new express(); //new关键字也可以省掉
+
+// 使用bodyParser
+server.use(bodyParser.urlencoded({
+    extended: false
+}))
+
 server.listen(3000, () => {
     console.log("3000running")
-})
+});
+//注意事项：匿名函数自执行，注意上面必须加上分号
+//匿名函数自执行
+(() => {
+    //使用cookie-parser
+    server.use(cookieParser())
+
+    let sessionArr = [];
+    for (let i = 0; i < 10000; i++) {
+        sessionArr[i] = "hello-everyone" + Math.random() * 100 + i
+    }
+    server.use(cookieSession({
+        name: "jiami",
+        keys: sessionArr,  //加密数组，数组越复杂，越不容易破解
+        maxAge: 30 * 60 * 1000 //设置过期时间
+    }))
+})();
 
 let fn = require("./route/index.js")
 server.use("/api", fn())  //http://localhost:3000/api/product
