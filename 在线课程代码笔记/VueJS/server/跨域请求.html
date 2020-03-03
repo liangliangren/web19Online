@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <img src="https://img13.360buyimg.com/n7/jfs/t1/49390/21/13514/497285/5da534f0E5484c0d9/b77001a9c0177ed7.jpg"
+        alt="">
+    <h1 id="title"></h1>
+    <script>
+        function getdata(data) {
+            console.log(data)
+            document.getElementById("title").innerHTML = data.username
+        }
+    </script>
+    <!-- 页面一打开直接请求资源地址 -->
+    <script src="http://localhost:8080/login?callback=getdata"></script>
+</body>
+
+</html>
