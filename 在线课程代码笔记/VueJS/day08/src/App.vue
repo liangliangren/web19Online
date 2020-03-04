@@ -1,10 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <!-- tag="li" 在router-link 上面添加tag="li" 指明标签的类型 -->
+      <router-link to="/">Home</router-link>|
+      <router-link to="/about">About</router-link>|
+      <router-link to="/news">新闻组件</router-link>|
+      <router-link to="/product">产品组件</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
