@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import News from '../views/News.vue'
 import Product from '../views/Product.vue'
 import Parent from "../views/Parent.vue"
+import Index from "../views/Index.vue"
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -31,6 +33,15 @@ const routes = [
     path: '/parent',
     name: 'Parent',
     component: Parent
+  }, {
+    path: '/index',
+    name: 'Index',
+    component: Index
+  },
+  {
+    path: '/life',
+    name: 'Life',
+    component: () => import('../views/Life.vue')
   }
 ]
 
