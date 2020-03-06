@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
 import News from '../views/News.vue'
+import UserAdd from '../views/user/UserAdd.vue'
+import UserList from '../views/user/UserList.vue'
+import Scss from '../views/Scss.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -38,6 +41,21 @@ const routes = [
     path: '/aboutdetail',
     name: 'AboutDetail',
     component: () => import('../views/AboutDetail.vue')
+  }, {
+    path: '/user',
+    name: 'User',
+    component: () => import('../views/User.vue'),
+    children: [{
+      path: "useradd",
+      component: UserAdd
+    }, {
+      path: "userlist",
+      component: UserList
+    }]
+  }, {
+    path: '/scss', //配置动态路由
+    name: 'Scss',
+    component: Scss
   }
 ]
 
