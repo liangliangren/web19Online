@@ -19,6 +19,7 @@ import HomeNav from "./components/HomeNav.vue";
 import HomeMain from "./components/HomeMain.vue";
 import HomeList from "./components/HomeList.vue";
 import Footer from "@/components/Footer.vue";
+import { headerFn } from "@/assets/js/index.js"; //按需引入自定义的模块
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
@@ -32,6 +33,9 @@ export default {
   data() {
     //这里存放数据
     return {};
+  },
+  mounted() {
+    headerFn();
   }
 };
 </script>

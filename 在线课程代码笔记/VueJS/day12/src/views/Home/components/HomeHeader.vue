@@ -1,6 +1,6 @@
 <!-- 首页头部组件 -->
 <template>
-  <div class="home-header">
+  <div class="home-header" id="header">
     <header class="header">
       <a href class="icon-left">111</a>
       <form>
@@ -33,7 +33,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent);
   z-index: 9999;
   .header {
     display: flex;
@@ -43,8 +43,8 @@ export default {
       input {
         width: 100%;
         position: relative;
-        height: 1.1rem;
-        border-radius: 1.1rem;
+        height: 0.9rem;
+        border-radius: 0.9rem;
         border: none;
         outline: none;
         top: 0.1rem;

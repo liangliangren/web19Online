@@ -1,4 +1,5 @@
 //这个是vue项目的配置文件 名字必须为vue.config.js
+const webpack = require("webpack")
 module.exports = {
     devServer: {
         host: "localhost",   //配置启动的域名，如果设置为0.0.0.0，所有的地址都可以访问
@@ -14,5 +15,13 @@ module.exports = {
                 }
             }
         }
+    },
+    configureWebpack: {  //配置vue插件
+        plugins: [
+            new webpack.ProvidePlugin({
+                jQuery: 'jQuery',
+                $: 'jQuery'
+            })
+        ]
     }
 }

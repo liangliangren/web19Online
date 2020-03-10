@@ -1,7 +1,93 @@
 <!-- 首页list组件 -->
 <template>
-  <div class>
-    <h2>首页list组件</h2>
+  <div class="home-product">
+    <div class="title">
+      <img src="@/assets/images/tuijian.jpg" alt />
+    </div>
+    <div class="home-product-list">
+      <ul>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+        <li>
+          <a href>
+            <img
+              src="https://x.dscmall.cn/storage/images/201809/thumb_img/0_thumb_G_1536532312220.jpg"
+              alt
+            />
+            <h3>产品标题</h3>
+            <p>4900</p>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -18,3 +104,41 @@ export default {
   }
 };
 </script>
+<style lang="less">
+.home-product {
+  margin-bottom: 2rem;
+  width: 100%;
+  .title img {
+    width: 100%;
+  }
+  .home-product-list {
+    width: 100%;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        width: 50%;
+        text-align: center;
+        img {
+          width: 90%;
+        }
+        h3,
+        p {
+          text-align: left;
+          margin-left: 10px;
+        }
+        h3 {
+          font-size: 0.37rem;
+        }
+        p {
+          font-size: 0.4rem;
+          color: #ec5151;
+          &::before {
+            content: "￥";
+          }
+        }
+      }
+    }
+  }
+}
+</style>
