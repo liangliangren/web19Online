@@ -1,79 +1,79 @@
-<!-- 分类左边 -->
+<!-- 分类左边  -->
 <template>
   <div id="categoryLeft">
     <div class="category-left">
-      <ul>
+      <ul class="categoryNav">
         <li class="active">
-          <a href>家用电器-1</a>
+          <a>家用电器-1</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器-2</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器-3</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器-4</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器-5</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器6</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器7</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器8</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器9</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器10</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器11</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器12</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器13</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器14</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器15</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器16</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器17</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器18</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器19</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器20</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器21</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器22</a>
         </li>
         <li>
-          <a href>家用电器</a>
+          <a>家用电器23</a>
         </li>
         <li>
-          <a href>家用电器-last</a>
+          <a>家用电器-last</a>
         </li>
       </ul>
     </div>
@@ -99,8 +99,6 @@ export default {
   width: 90px;
   background: #efefef;
   ul {
-    height: 100%;
-    overflow-y: scroll;
     li {
       height: 1.2rem;
       line-height: 1.2rem;

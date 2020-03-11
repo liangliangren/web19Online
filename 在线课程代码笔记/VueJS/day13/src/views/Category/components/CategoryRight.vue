@@ -1,4 +1,4 @@
-<!-- 分类右边 -->
+<!-- 分类右边  -->
 <template>
   <div id="cate-right">
     <div class="cate-right">

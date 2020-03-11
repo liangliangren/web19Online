@@ -1,6 +1,6 @@
 <!-- 分类头部组件 -->
 <template>
-  <div class="category-header">
+  <div class="category-header" id="header-top">
     <header class="header">
       <a class="icon-left iconfont icon-jiantou3" onclick="window.history.back(1)"></a>
       <form>
