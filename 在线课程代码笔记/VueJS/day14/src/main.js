@@ -14,7 +14,8 @@ Vue.use(MintUI)
 // axios全局配置  下载 cnpm install axios --save
 import axios from "axios"
 axios.defaults.baseURL = "/api"
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// axios.defaults.baseURL = "http://localhost:3000/api"
+axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 import rem from "./rem/rem.js";

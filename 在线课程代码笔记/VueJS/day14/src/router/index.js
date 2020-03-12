@@ -11,9 +11,15 @@ import Cart from "../views/Cart/Cart.vue";
 import Mine from "../views/Mine/Mine.vue";
 import Demo from "../views/Demo.vue";
 import DemoTwo from "../views/Demo2.vue";
+import Login from "../views/Mine/Login.vue";
+import Register from "../views/Mine/Register.vue";
 //配置路由
 
 let routes = [{
+    path: "/",
+    name: Login,
+    component: Login
+}, {
     path: "/home",
     name: Home,
     component: Home
@@ -45,6 +51,14 @@ let routes = [{
     path: "/demo2",
     name: DemoTwo,
     component: DemoTwo
+}, {
+    path: "/login",
+    name: Login,
+    component: Login
+}, {
+    path: "/register",
+    name: Register,
+    component: Register
 }]
 
 
