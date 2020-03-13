@@ -39,10 +39,10 @@
         <router-link to="/cart">
           <i class="iconfont icon-gouwuche1"></i>
           <span>购物车</span>
-          <em>5</em>
+          <em>{{cartDataLength}}</em>
         </router-link>
       </div>
-      <div class="addCart">添加购物车</div>
+      <div class="addCart" @click="addCartsFn(detailDatas)">添加购物车</div>
       <div class="buy">立即购买</div>
     </div>
   </div>
@@ -65,6 +65,11 @@ export default {
       detailDatas: {}
     };
   },
+  computed: {
+    cartDataLength() {
+      return this.$store.state.carts.length;
+    }
+  },
   methods: {
     getProductDetailDatasFn(id) {
       Axios.get("http://localhost:3000/api/goodsdetail?pid=" + id).then(res => {
@@ -72,11 +77,35 @@ export default {
         this.detailBannerDatas = res.data.detailDatas[0];
         this.detailDatas = res.data.detailDatas[1];
       });
+    },
+    addCartsFn(data) {
+      console.log(data);
+      console.log(this.$store.state.carts);
+      if (this.$store.state.carts != "undefined") {
+        //find() 查找数组中符合条件的元素,若有多个符合条件的元素，则返回第一个元素。
+        var isCarts = this.$store.state.carts.find(function(value) {
+          return value.product_id == data.product_id;
+        });
+        console.log(isCarts);
+        if (!isCarts) {
+          var cartData = {
+            product_id: data.product_id,
+            category_id: data.category_id,
+            product_name: data.product_name,
+            product_price: data.product_price,
+            product_img_url: data.product_img_url,
+            value: 1,
+            showHide: false
+          };
+        }
+      }
+      this.$store.commit("setCartsDatas", cartData);
     }
   },
   mounted() {
     console.log(this.$route.params);
     this.getProductDetailDatasFn(this.$route.params.id);
+    console.log(this.$store.state.carts);
   }
 };
 </script>

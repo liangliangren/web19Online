@@ -6,6 +6,10 @@ import router from "./router/index.js"
 //1.需要配置路由   cnpm install vue - router--save
 //2.使用less      cnpm install less less-loader --save  
 
+//使用vuex， cnpm install vuex --save
+//引入模块
+import store from './vuex/index.js'  //记得在vue实例中注入
+
 // 下载使用mint-ui框架  cnpm install mint-ui --save
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
@@ -22,5 +26,6 @@ import rem from "./rem/rem.js";
 new Vue({
   router,
   rem,
+  store,
   render: h => h(App),
 }).$mount('#app')
