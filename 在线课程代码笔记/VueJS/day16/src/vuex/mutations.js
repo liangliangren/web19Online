@@ -14,6 +14,7 @@ const mutations = {
     //点击购物车中的加号
     addCartsFn(state, index) {
         state.carts[index].value++
+        localStorage.setItem("carts", JSON.stringify(state.carts))
     },
     //点击购物车中的减号
     jianCartsFn(state, index) {
@@ -22,6 +23,7 @@ const mutations = {
             MessageBox("提示", "商品个数不能小于1")
         } else {
             state.carts[index].value--
+            localStorage.setItem("carts", JSON.stringify(state.carts))
         }
     },
     //点击购物车删除按钮

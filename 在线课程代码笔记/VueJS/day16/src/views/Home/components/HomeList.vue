@@ -69,6 +69,15 @@ export default {
         }
         h3 {
           font-size: 0.37rem;
+          height: 1rem;
+          margin-bottom: 10px;
+          font-weight: normal;
+          // 下面几行css让多行文本出现省略号
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-line-clamp: 2; //第几行出现省略号
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
         }
         p {
           font-size: 0.4rem;

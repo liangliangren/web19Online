@@ -21,9 +21,9 @@
             <div class="cart-wrap">
               <span class="price">{{cartsListData.product_price}}</span>
               <div class="number">
-                <a href="javascript:;" @click="jianCarts(index)">-</a>
+                <a href="javascript:;" @click="jianCartsFn(index)">-</a>
                 <input type="text" value="1" v-model="cartsListData.value" />
-                <a href="javascript:;" @click="addCarts(index)">+</a>
+                <a href="javascript:;" @click="addCartsFn(index)">+</a>
                 <button @click="deleteCartsFn(index)">删除</button>
               </div>
             </div>
@@ -31,8 +31,15 @@
         </li>
       </ul>
     </div>
+    <div class="noCart" v-show="!cartsListDatas.length>0">
+      <i class="iconfont icon-gouwuche"></i>
+      <p>
+        购物车空空的，
+        <router-link to="/category/858">请选择您喜欢的商品</router-link>
+      </p>
+    </div>
 
-    <div class="cartFooter">
+    <div class="cartFooter" v-show="cartsListDatas.length>0">
       <div class="checkAll" @click="checkAllFn()">
         <i class="iconfont icon-danxuankuang" v-show="!flag"></i>
         <i class="iconfont icon-danxuankuangxuanzhong" style="color:red" v-show="flag"></i>
@@ -56,6 +63,7 @@
 
 import Head from "@/components/Head.vue";
 import Footer from "@/components/Footer.vue";
+import { mapMutations } from "vuex";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
@@ -84,14 +92,21 @@ export default {
     }
   },
   methods: {
-    addCarts(index) {
-      //点击产品加号
-      this.$store.commit("addCartsFn", index);
-    },
-    jianCarts(index) {
-      //点击产品减号
-      this.$store.commit("jianCartsFn", index);
-    },
+    // addCartsFn(index) {
+    //   //点击产品加号
+    //   this.$store.commit("addCartsFn", index);
+    // },
+    // jianCartsFn(index) {
+    //   //点击产品减号
+    //   this.$store.commit("jianCartsFn", index);
+    // }, //点击产品的删除按钮
+    // deleteCartsFn(index) {
+    //   this.$store.commit("deleteCartsFn", index);
+    // },
+    ...mapMutations(["addCartsFn", "jianCartsFn", "deleteCartsFn"]),
+    //mapMutations辅助函数，使用的时候必须引入import { mapMutations } from "vuex";
+    //在组件中的methods里面同...mapMutations([])
+    //mapMutations 辅助函数将组件中的 methods 映射为 store.commit
     changeRadio(cartsListData) {
       //点击产品的单选框
       cartsListData.showHide = !cartsListData.showHide;
@@ -126,10 +141,6 @@ export default {
           cart.showHide = false;
         });
       }
-    },
-    //点击产品的删除按钮
-    deleteCartsFn(index) {
-      this.$store.commit("deleteCartsFn", index);
     }
   },
   mounted() {
@@ -251,5 +262,15 @@ export default {
       color: #ffffff;
     }
   }
+}
+.noCart {
+  i {
+    font-size: 4rem;
+    color: #cccccc;
+    margin: 2rem 0 0.5rem;
+  }
+  font-size: 0.37rem;
+  color: #999;
+  text-align: center;
 }
 </style>
