@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Demo from '../views/Demo.vue'
 import Demo2 from '../views/Demo2.vue'
 import Demo3 from '../views/Demo3.vue'
+import Demo4 from '../views/Demo4.vue'
+import Table from '../views/Table.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -34,6 +36,16 @@ const routes = [
     path: '/demo3',
     name: 'Demo3',
     component: Demo3
+  },
+  {
+    path: '/demo4',
+    name: 'Demo4',
+    component: Demo4
+  },
+  {
+    path: '/table',
+    name: 'Table',
+    component: Table
   }
 ]
 

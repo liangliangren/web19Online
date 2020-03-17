@@ -5,7 +5,9 @@
       <router-link to="/about">About</router-link>|
       <router-link to="/demo">Demo</router-link>|
       <router-link to="/demo2">布局容器</router-link>|
-      <router-link to="/demo3">表单</router-link>
+      <router-link to="/demo3">表单</router-link>|
+      <router-link to="/demo4">表单2</router-link>|
+      <router-link to="/table">表格</router-link>
     </div>
     <router-view />
   </div>
