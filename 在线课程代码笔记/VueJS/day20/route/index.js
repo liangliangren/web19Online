@@ -15,6 +15,7 @@ module.exports = () => {
     let userListSql = `SELECT user_id,user_name,user_phone,user_address FROM user`  //获取用户列表sql
 
 
+
     //封装获取数据方法
     function getDataFn(sqlStr, res) {
         db.query(sqlStr, (err, data) => {
@@ -28,6 +29,47 @@ module.exports = () => {
     //用户列表接口
     route.get('/getuserlist', (req, res) => {
         getDataFn(userListSql, res)
+    })
+    //查看用户信息接口
+    route.get("/getuserinfo", (req, res) => {
+        //console.log(req.query) //{ id: '1' }
+        let id = req.query.id
+        let userInfoSql = `SELECT * FROM user WHERE user_id=${id}`
+        getDataFn(userInfoSql, res)
+    })
+    //修改用户名接口
+    //UPDATE user SET user_name="llr123456789" WHERE user_id=1
+    route.post("/edituserinfo", (req, res) => {
+        console.log(req.body)
+        //  '{"user_id":1,"user_name":"liangliangren","user_phone":"13673618137","user_address":"河南郑州","login_password":"123456"}': ''
+        var obj = {}
+        for (let objattr in req.body) {
+            console.log(objattr)
+            obj = JSON.parse(objattr)
+        }
+        console.log(obj)
+        let editUserSql = `UPDATE user SET user_name='${obj.user_name}',user_phone='${obj.user_phone}' WHERE user_id='${obj.user_id}'`
+        db.query(editUserSql, (err) => {
+            if (err) {
+                console.log("服务器异常")
+            } else {
+                res.send({ "status": "1", "msg": "修改成功" }).end()
+            }
+        })
+
+    })
+    //删除用户接口
+    route.get("/deleteuser", (req, res) => {
+        console.log(req.query)
+        let id = req.query.id
+        let deleteUserSql = `DELETE FROM user WHERE user_id='${id}'`
+        db.query(deleteUserSql, (err) => {
+            if (err) {
+                console.log("服务器异常")
+            } else {
+                res.send({ "status": "1", "msg": "删除成功" }).end()
+            }
+        })
     })
 
     //产品列表接口

@@ -30,10 +30,11 @@
       <el-table-column prop="user_name" label="用户名" width="180"></el-table-column>
       <el-table-column prop="user_phone" label="手机号" width="180"></el-table-column>
       <el-table-column prop="user_address" label="地址"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="100">
+      <el-table-column fixed="right" label="操作" width="220">
         <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-          <el-button type="text" size="small">编辑</el-button>
+          <el-button @click="handleClick(scope.row)" type="info" size="small">查看</el-button>
+          <el-button type="primary" size="small" @click="handleEditUser(scope.row)">编辑</el-button>
+          <el-button type="danger" size="small" @click="handleDeleteUser(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,6 +54,31 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="addUserDialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="addUserSubmitForm('addForm')">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- 查看用户信息对话框 -->
+    <!-- userInfoDialogVisible 在data中定义数据 false 隐藏对话框 -->
+    <el-dialog title="查看用户信息" :visible.sync="userInfoDialogVisible">
+      <el-card class="box-card">
+        <div>{{userInfoDatas.user_name}}</div>
+        <div>{{userInfoDatas.user_phone}}</div>
+        <div>{{userInfoDatas.user_address}}</div>
+        <div>{{userInfoDatas.user_photo}}</div>
+      </el-card>
+    </el-dialog>
+    <!-- 修改用户信息对话框 -->
+    <el-dialog title="修改用户" :visible.sync="editUserDialogVisible">
+      <el-form :model="editForm" ref="addForm" :rules="addRules">
+        <el-form-item label="用户名" prop="user_name">
+          <el-input v-model="editForm.user_name" placeholder="请输入用户名"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" prop="user_phone">
+          <el-input v-model="editForm.user_phone" placeholder="请输入手机号"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editUserDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUserSubmitForm('addForm')">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -85,7 +111,15 @@ export default {
       userListDatas: [],
       searchuser: "",
       addUserDialogVisible: false,
+      userInfoDialogVisible: false,
+      editUserDialogVisible: false,
+      userInfoDatas: {},
       addForm: {
+        user_name: "",
+        login_password: "",
+        user_phone: ""
+      },
+      editForm: {
         user_name: "",
         login_password: "",
         user_phone: ""
@@ -130,8 +164,81 @@ export default {
         }
       });
     },
+    //查看用户信息
     handleClick(row) {
+      //get传值
+      Axios.get("http://localhost:3000/api/getuserinfo", {
+        params: {
+          id: row.user_id
+        }
+      }).then(res => {
+        console.log(res);
+        if (res.data.status == 1) {
+          this.userInfoDatas = res.data.dataList[0];
+          this.userInfoDialogVisible = true; //让对话框显示
+        }
+      });
       console.log(row);
+    },
+    //修改用户信息
+    handleEditUser(rowEditInfo) {
+      this.editUserDialogVisible = true;
+      console.log(rowEditInfo);
+      this.editForm = rowEditInfo;
+    },
+    //提交修改之后的用户信息
+    editUserSubmitForm(formName) {
+      // http://localhost:3000/api/edituserinfo
+
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          Axios.post(
+            "http://localhost:3000/api/edituserinfo",
+            JSON.stringify(this.editForm)
+          ).then(res => {
+            console.log(res);
+            if (res.data.status == 1) {
+              this.editUserDialogVisible = false;
+              this.$router.push({ path: "/" });
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
+        }
+      });
+    },
+    //删除用户
+    handleDeleteUser(row) {
+      console.log(row);
+
+      this.$confirm("您确定要删除该用户吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          //get传值的第二种形式
+          Axios.get(
+            "http://localhost:3000/api/deleteuser?id=" + row.user_id
+          ).then(res => {
+            console.log(res);
+            if (res.data.status == 1) {
+              this.$message({
+                type: "success",
+                message: "删除成功"
+              });
+              this.$router.push({ path: "/" });
+            }
+          });
+        })
+        .catch(() => {
+          //异常捕获
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   },
   mounted() {

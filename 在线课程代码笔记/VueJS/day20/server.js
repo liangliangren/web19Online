@@ -1,7 +1,5 @@
 //查询语句 SELECT user_name,user_age FROM `user` WHERE user_age >= 18 AND user_age < 30
 //模糊查询 SELECT * FROM product WHERE product_name LIKE "%关键字%"
-
-
 //插入语句 INSERT INTO `user` (user_name) VALUES ("liang")
 //插入语句 INSERT INTO `user` (user_name,login_password,user_phone,user_age) VALUES ("靓靓人","123456","13673618137","28")
 //插入语句 INSERT INTO 表名 (字段1,字段2,...) VALUES (值1,值2,...)
