@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div id="text">123456</div> -->
+    <canvas id="canvas" width="300" height="300"></canvas>
+    <script>
+        //0-10
+        //console.log(Math.floor(Math.random() * 10))
+        //Math.floor(Math.random()*(max-min)+min)
+        // Math.floor() 向下取整
+        //Math.ceil()  向上取整
+        // Math.round() 四舍五入
+        // Math.random()  0-1之间的随机数
+        //document.getElementById("text").style.font = "100px Arial"
+        var c = document.getElementById("canvas");
+        var oCanvas = c.getContext("2d");
+        function drawDot() {
+            for (let i = 0; i < 100; i++) {
+                console.log(i);
+                oCanvas.fillStyle = 'red';
+                oCanvas.beginPath(); //开始一条路径
+                oCanvas.arc(
+                    60,
+                    60,
+                    2,
+                    0,
+                    2 * Math.PI
+                );
+                oCanvas.fill();
+                oCanvas.stroke();
+            }
+        }
+        drawDot()
+    </script>
+</body>
+
+</html>
